@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:adjustViewBounds="false"-->
+        <!--android:background="@drawable/welcome_page_test_image_green"-->
+        <!--android:focusable="true"-->
+        <!--android:scaleType="centerCrop" />-->
+
+    <!--点击进入的按键-->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开始使用Where R U"
+        android:width="300dp"
+        android:id="@+id/start_use_where_r_u_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="101dp" />
+
+
+
+
+
+</RelativeLayout>

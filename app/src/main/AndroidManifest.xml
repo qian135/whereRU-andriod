@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.etuan.whereru" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <!--将第一个FirstActivity的主题设为透明，无标题栏，全屏
+   （因为要用它来处理是跳转到欢迎注册界面，还是校园活动首页（MainActivity））-->
+        <activity
+            android:name=".FirstActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--欢迎界面-->
+        <activity android:name=".WelcomeActivity">
+
+        </activity>
+
+        <!--登陆界面-->
+        <activity android:name=".SignInActivity">
+
+        </activity>
+
+        <!--注册界面 1-->
+        <activity android:name=".RegisterPageOneActivity">
+
+        </activity>
+
+        <!--注册界面 2-->
+        <activity android:name=".RegisterPageTwoActivity">
+
+        </activity>
+
+        <!-- 校园活动，校园竞赛，校园团队 3个的首页 -->
+        <activity android:name=".MainActivity">
+
+        </activity>
+
+        <!-- 校园活动->活动详情 界面-->
+        <activity
+            android:name=".CampusActivityDetailsActivity"
+            android:label="@string/title_activity_campus_activity_details" >
+        </activity>
+
+        <!-- 校园竞赛->竞赛详情 界面-->
+        <activity
+            android:name=".CampusCompetitionDetailsActivity"
+            android:label="@string/title_activity_campus_competition_details" >
+        </activity>
+
+        <!-- 校园团队->团队介绍 界面-->
+        <activity
+            android:name=".CampusTeamDetailsActivity"
+            android:label="@string/title_activity_campus_competition_details" >
+        </activity>
+
+        <!--搜索主界面-->
+        <activity android:name=".SearchHomePage">
+
+        </activity>
+
+    </application>
+
+</manifest>

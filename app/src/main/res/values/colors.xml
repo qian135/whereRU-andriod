@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="transparent">#00000000</color> <!--透明 -->
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="gray">#666666</color>
+    <color name="green">#008000</color> <!--绿色 -->
+    <color name="aqua">#00FFFF</color> <!--浅绿色 -->
+    <color name="light_sea_green">#20B2AA</color> <!--亮海蓝色 -->
+    <color name="sky_blue">#87CEEB</color> <!--天蓝色 -->
+    <color name="red">#FF0000</color>
+
+</resources>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/sign_in_phone_icon"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/sign_in_button_in_sign_in_page"
+        android:layout_alignStart="@+id/sign_in_button_in_sign_in_page"
+        android:layout_marginTop="47dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/sign_in_phone_number_edit_text"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_marginLeft="29dp"
+        android:layout_marginStart="29dp"
+        android:hint="手机号"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/sign_in_password_icon"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/sign_in_password_edit_text"
+        android:hint="密码"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_alignRight="@+id/sign_in_button_in_sign_in_page"
+        android:layout_alignEnd="@+id/sign_in_button_in_sign_in_page" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Where R U"
+        android:id="@+id/textView"
+        android:textSize="30sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="注册"
+        android:id="@+id/register_text_view"
+        android:textColor="#ff00ff00"
+        android:layout_below="@+id/sign_in_password_edit_text"
+        android:layout_toLeftOf="@+id/sign_in_password_edit_text"
+        android:layout_toStartOf="@+id/sign_in_password_edit_text"
+        android:layout_marginTop="36dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="忘记密码"
+        android:textColor="#ff00ff00"
+        android:id="@+id/textView3"
+        android:layout_alignTop="@+id/register_text_view"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登陆"
+        android:id="@+id/sign_in_button_in_sign_in_page"
+        android:layout_below="@+id/register_text_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:width="280dp"
+        android:background="@drawable/custom_rounded_button"/>
+
+</RelativeLayout>

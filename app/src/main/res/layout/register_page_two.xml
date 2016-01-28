@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="填完信息就好了"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView8"
+        android:layout_marginTop="40dp"
+        android:layout_toLeftOf="@+id/textView8"
+        android:layout_toStartOf="@+id/textView8"
+        android:src="@drawable/register_page_name_icon" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView3"
+        android:layout_alignStart="@+id/imageView3"
+        android:layout_below="@+id/imageView3"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/student_id_identification_page_password_image" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView3"
+        android:layout_alignStart="@+id/imageView3"
+        android:layout_below="@+id/imageView4"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/register_page_phone_icon" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView5"
+        android:layout_alignStart="@+id/imageView5"
+        android:layout_below="@+id/imageView5"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/register_page_identification_code_icon" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView6"
+        android:layout_alignStart="@+id/imageView6"
+        android:layout_below="@+id/imageView6"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/register_page_sex_icon" />
+
+    <EditText
+        android:id="@+id/register_page_two_name_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_toEndOf="@+id/imageView3"
+        android:layout_toRightOf="@+id/imageView3"
+        android:ems="10"
+        android:hint="姓名"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp" />
+
+    <EditText
+        android:id="@+id/register_page_two_password_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView4"
+        android:layout_toEndOf="@+id/imageView4"
+        android:layout_toRightOf="@+id/imageView4"
+        android:ems="10"
+        android:hint="密码"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp" />
+
+    <EditText
+        android:id="@+id/register_page_two_phone_number_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView5"
+        android:layout_toEndOf="@+id/imageView5"
+        android:layout_toRightOf="@+id/imageView5"
+        android:ems="10"
+        android:hint="手机号"
+        android:inputType="phone"
+        android:paddingLeft="10dp" />
+
+    <EditText
+        android:id="@+id/register_page_two_identification_code_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView6"
+        android:layout_toEndOf="@+id/imageView6"
+        android:layout_toRightOf="@+id/imageView6"
+        android:ems="10"
+        android:hint="验证码"
+        android:inputType="number"
+        android:paddingLeft="10dp" />
+
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editText6"
+        android:layout_toEndOf="@+id/sign_in_text_view_in_register_page_two"
+        android:layout_toRightOf="@+id/sign_in_text_view_in_register_page_two"
+        android:text="获取验证码"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/register_button_in_register_page_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView7"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:width="280dp"
+        android:background="@drawable/custom_rounded_button"
+        android:text="注册" />
+
+
+    <TextView
+        android:id="@+id/sign_in_text_view_in_register_page_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_button_in_register_page_two"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="登陆"
+        android:textColor="@color/sky_blue" />
+
+    <RadioGroup
+        android:id="@+id/sex_choose_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="100dp"
+        android:layout_above="@+id/register_button_in_register_page_two">
+
+            <RadioButton
+                android:id="@+id/sex_choose_man_radio_button"
+                android:text="男"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:checked="true"
+                android:layout_above="@+id/register_button_in_register_page_two"
+                android:layout_toLeftOf="@+id/sign_in_text_view_in_register_page_two"
+                android:layout_toStartOf="@+id/sign_in_text_view_in_register_page_two" />
+
+            <RadioButton
+                android:id="@+id/sex_choose_woman_radio_button"
+                android:text="女"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:layout_above="@+id/register_button_in_register_page_two"
+                android:layout_toLeftOf="@+id/sign_in_text_view_in_register_page_two"
+                android:layout_toStartOf="@+id/sign_in_text_view_in_register_page_two" />
+
+    </RadioGroup>
+
+</RelativeLayout>

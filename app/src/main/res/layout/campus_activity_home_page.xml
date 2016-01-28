@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--校园活动首页的总布局-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <fragment
+        android:id="@+id/fragment_cycle_viewpager_content"
+        android:name="cn.androiddevelop.cycleviewpager.lib.HotCampusActivityCycleViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="180dp" />
+
+    <ListView
+        android:id="@+id/campus_activity_home_page_activity_list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="240dp"
+        />
+
+</LinearLayout>

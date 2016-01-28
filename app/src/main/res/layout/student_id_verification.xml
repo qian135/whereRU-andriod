@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/student_id_verification"
+        android:textSize="40sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:id="@+id/textView11"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/studentIDIcon"
+        android:src="@drawable/student_id_identification_page_student_id_image"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/textView11"
+        android:layout_toLeftOf="@+id/textView11"
+        android:layout_toStartOf="@+id/textView11"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/studentIDEditText"
+        android:hint="@string/student_id"
+        android:paddingLeft="10dp"
+        android:layout_alignTop="@+id/studentIDIcon"
+        android:layout_alignLeft="@+id/textView11"
+        android:layout_alignStart="@+id/textView11"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/student_id_identification_page_password_image"
+        android:layout_below="@+id/studentIDEditText"
+        android:layout_alignLeft="@+id/studentIDIcon"
+        android:layout_alignStart="@+id/studentIDIcon"
+        android:layout_marginTop="30dp"
+        android:id="@+id/passwordIcon"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/educationalAdministrationSystemPasswordEditText"
+        android:hint="@string/educational_administration_system_password"
+        android:paddingLeft="10dp"
+        android:layout_alignTop="@+id/passwordIcon"
+        android:layout_alignLeft="@+id/studentIDEditText"
+        android:layout_alignStart="@+id/studentIDEditText"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/attention"
+        android:textColor="@color/red"
+        android:layout_below="@+id/educationalAdministrationSystemPasswordEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:id="@+id/textView12"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/verification"
+        android:id="@+id/verificationButton"
+        android:layout_marginTop="35dp"
+        android:width="260dp"
+        android:background="@drawable/custom_rounded_button"
+        android:layout_below="@+id/textView12"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
