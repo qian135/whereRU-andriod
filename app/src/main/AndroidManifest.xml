@@ -44,8 +44,18 @@
 
         </activity>
 
-        <!-- 校园活动，校园竞赛，校园团队 3个的首页 -->
+        <!-- 圈子，校园，我的框架 -->
         <activity android:name=".MainActivity">
+
+        </activity>
+
+        <!-- 圈子 -->
+        <activity android:name=".CircleHomePageActivity">
+
+        </activity>
+
+        <!-- 校园这个大类的首页 -->
+        <activity android:name=".CampusHomePageActivity">
 
         </activity>
 
@@ -67,8 +77,24 @@
             android:label="@string/title_activity_campus_competition_details" >
         </activity>
 
+        <!-- 个人中心->首页 -->
+        <activity
+            android:name=".MeHomePageActivity"
+            android:label="@string/title_activity_campus_competition_details" >
+        </activity>
+
+        <!-- 个人中心->我的团队 -->
+        <activity android:name=".MeMyTeamPageActivity">
+
+        </activity>
+
+        <!-- 个人中心->我的团队->信息修改->部门 -->
+        <activity android:name=".MeMyTeamDataModificationDepartmentActivity">
+
+        </activity>
+
         <!--搜索主界面-->
-        <activity android:name=".SearchHomePage">
+        <activity android:name=".SearchPage">
 
         </activity>
 

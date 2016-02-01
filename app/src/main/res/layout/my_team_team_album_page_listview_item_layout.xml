@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2015团队聚会"
+        android:padding="10dp"
+        android:id="@+id/textView33" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/my_team_team_album_icon"
+        android:layout_below="@+id/textView33"
+        android:layout_toRightOf="@+id/textView33"
+        android:layout_toEndOf="@+id/textView33"
+        android:id="@+id/imageView18" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="12"
+        android:textColor="@color/red"
+        android:id="@+id/textView34"
+        android:layout_alignTop="@+id/imageView18"
+        android:layout_alignLeft="@+id/imageView18"
+        android:layout_alignStart="@+id/imageView18" />
+
+</RelativeLayout>

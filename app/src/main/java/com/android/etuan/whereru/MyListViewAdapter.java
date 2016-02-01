@@ -12,8 +12,8 @@ public class MyListViewAdapter extends BaseAdapter {
 
     private List<String> mList;
     private Context mContext;
-    //mFlag = 1 加载校园活动列表 mFlag = 2 加载校园竞赛列表 mFlag = 3 加载校园团队列表
-    private int mFlag;//
+    //选择判断加载的列表项
+    private int mFlag;
 
     public MyListViewAdapter(Context context) {
         mContext = context;
@@ -23,7 +23,6 @@ public class MyListViewAdapter extends BaseAdapter {
         mList = list;
         mContext = context;
         mFlag = flag;
-//        System.out.println(mFlag);
     }
 
 
@@ -44,10 +43,7 @@ public class MyListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-        if (convertView != null) {
-
-        } else {
+        if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             switch (mFlag) {
@@ -94,8 +90,48 @@ public class MyListViewAdapter extends BaseAdapter {
                             .inflate(R.layout.campus_team_details_activity_page_listview_item_layout, null);
                     break;
 
-            }
+                //个人中心->首页->我的团队
+                case 8:
+                    convertView = layoutInflater
+                            .inflate(R.layout.me_home_page_my_team_page_listview_item_layout, null);
+                    break;
+                //个人中心->首页->竞赛历史
+                case 9:
+                    convertView = layoutInflater
+                            .inflate(R.layout.me_home_page_activity_history_page_listview_item_layout, null);
+                    break;
+                //个人中心->首页->活动历史
+                case 10:
+                    convertView = layoutInflater
+                            .inflate(R.layout.me_home_page_activity_history_page_listview_item_layout, null);
+                    break;
 
+                //个人中心->我的团队->团队成员(已加入团队)
+                case 11:
+                    convertView = layoutInflater
+                            .inflate(R.layout.my_team_team_member_page_member_listview_item_layout, null);
+                    break;
+                //个人中心->我的团队->团队成员(申请加入团队)
+                case 12:
+                    convertView = layoutInflater
+                            .inflate(R.layout.my_team_team_member_page_want_join_listview_item_layout, null);
+                    break;
+                //个人中心->我的团队->团队活动
+                case 13:
+                    convertView = layoutInflater
+                            .inflate(R.layout.my_team_team_activity_page_listview_item_layout, null);
+                    break;
+                //个人中心->我的团队->团队相册
+                case 14:
+                    convertView = layoutInflater
+                            .inflate(R.layout.my_team_team_album_page_listview_item_layout, null);
+                    break;
+                //个人中心->我的团队->信息修改（各部门要修改信息列表）
+                case 15:
+                    convertView = layoutInflater
+                            .inflate(R.layout.my_team_data_modification_department_data_page_listview_item_layout, null);
+                    break;
+            }
         }
         return convertView;
     }

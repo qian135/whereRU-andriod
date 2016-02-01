@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/invite_icon_image_view"
+        android:src="@drawable/invite_icon"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="邀请新成员"
+        android:id="@+id/textView30"
+        android:layout_alignBottom="@+id/invite_icon_image_view"
+        android:layout_toRightOf="@+id/invite_icon_image_view"
+        android:padding="10dp"/>
+
+    <ListView
+        android:id="@+id/my_team_team_member_page_member_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="3dp"
+        android:background="@color/gray_line"
+        android:layout_marginBottom="160dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentBottom="true" />
+
+    <ListView
+        android:id="@+id/my_team_team_member_page_want_join_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+</RelativeLayout>

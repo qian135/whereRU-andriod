@@ -46,24 +46,14 @@
         android:src="@drawable/register_page_phone_icon" />
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView5"
-        android:layout_alignStart="@+id/imageView5"
-        android:layout_below="@+id/imageView5"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/register_page_identification_code_icon" />
-
-    <ImageView
         android:id="@+id/imageView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView6"
-        android:layout_alignStart="@+id/imageView6"
-        android:layout_below="@+id/imageView6"
         android:layout_marginTop="30dp"
-        android:src="@drawable/register_page_sex_icon" />
+        android:src="@drawable/register_page_sex_icon"
+        android:layout_alignLeft="@+id/imageView5"
+        android:layout_alignStart="@+id/imageView5"
+        android:layout_below="@+id/imageView5" />
 
     <EditText
         android:id="@+id/register_page_two_name_edit_text"
@@ -101,28 +91,6 @@
         android:inputType="phone"
         android:paddingLeft="10dp" />
 
-    <EditText
-        android:id="@+id/register_page_two_identification_code_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageView6"
-        android:layout_toEndOf="@+id/imageView6"
-        android:layout_toRightOf="@+id/imageView6"
-        android:ems="10"
-        android:hint="验证码"
-        android:inputType="number"
-        android:paddingLeft="10dp" />
-
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editText6"
-        android:layout_toEndOf="@+id/sign_in_text_view_in_register_page_two"
-        android:layout_toRightOf="@+id/sign_in_text_view_in_register_page_two"
-        android:text="获取验证码"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
         android:id="@+id/register_button_in_register_page_two"
@@ -144,7 +112,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="登陆"
-        android:textColor="@color/sky_blue" />
+        android:textColor="@color/blue" />
 
     <RadioGroup
         android:id="@+id/sex_choose_radio_group"

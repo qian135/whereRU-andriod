@@ -3,14 +3,17 @@ package com.android.etuan.whereru;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * Created by zhang on 1/19/2016.
- */
+import com.android.etuan.whereru.utils.httputil.HttpLogin;
+import com.loopj.android.http.RequestParams;
+
 public class SignInActivity extends Activity {
 
     private TextView mRegisterTextView;
@@ -18,7 +21,7 @@ public class SignInActivity extends Activity {
     private Button mSignInButtonInSignInPage;
 
     //登录页 手机号,密码 输入框
-    private EditText mSignInPhoneNumberEditText,mSignInPasswordEditText;
+    private EditText mSignInPhoneNumberEditText, mSignInPasswordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +36,12 @@ public class SignInActivity extends Activity {
 
         //跳转到其他界面,监听输入的数据的代码
 
+        //跳转到注册界面1
         mRegisterTextView = (TextView) findViewById(R.id.register_text_view);
         mRegisterTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this,RegisterPageOneActivity.class);
+                Intent intent = new Intent(SignInActivity.this, RegisterPageOneActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -47,16 +51,35 @@ public class SignInActivity extends Activity {
         mSignInButtonInSignInPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this,MainActivity.class);
-                startActivity(intent);
 
                 String phoneNumber = mSignInPhoneNumberEditText.getText().toString();
                 String password = mSignInPasswordEditText.getText().toString();
 
-                System.out.println(phoneNumber + " phoneNumber come from SignInActivity ");
-                System.out.println(password + " password come from SignInActivity ");
-
-                finish();
+                //调用登陆接口进行登陆
+                if (phoneNumber.equals("") || password.equals("")) {
+                    Toast.makeText(SignInActivity.this, "请输入账号信息", Toast.LENGTH_SHORT).show();
+                } else {
+                    RequestParams params = new RequestParams();
+                    params.add("phone", phoneNumber);
+                    params.add("password", password);
+                    HttpLogin.setContext(SignInActivity.this);
+                    Handler handler = new Handler() {
+                        @Override
+                        public void handleMessage(Message msg) {
+                            if (msg.what == 0x234) {
+                                //登陆成功跳转到首页
+                                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                //登录失败
+                            }
+                            super.handleMessage(msg);
+                        }
+                    };
+                    HttpLogin.setHandler(handler);
+                    HttpLogin.Login(params);
+                }
             }
         });
 

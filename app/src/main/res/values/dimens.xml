@@ -5,4 +5,20 @@
 
     <dimen name="view_small_padding">1dp</dimen>
     <dimen name="view_padding">6dp</dimen>
+
+    <!-- 最上面标题栏的尺寸 -->
+
+    <dimen name="title_bar_height">44dp</dimen>
+    <!-- 返回上一级的箭头距离右边的距离 -->
+    <dimen name="up_navigation_icon_padding_left">10dp</dimen>
+    <!-- 返回上一级的箭头的右边的文字距离右边的距离 -->
+    <dimen name="right_text_view_of_up_navigation_icon_padding_left">40dp</dimen>
+    <!-- 返回上一级的箭头的右边的文字大小 -->
+    <dimen name="right_text_view_of_up_navigation_icon_text_size">30sp</dimen>
+
+    <!-- 个人中心->我的团队 界面相关尺寸 -->
+
+
+
+
 </resources>

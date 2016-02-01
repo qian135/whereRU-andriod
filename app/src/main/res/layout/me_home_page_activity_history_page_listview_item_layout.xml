@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 个人中心->首页->活动历史 ListView Adapter的布局文件-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="团团一家2015招新报名"
+        android:textColor="@color/black"
+        android:id="@+id/textView"
+        android:paddingLeft="10dp"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="进行中"
+        android:textColor="@color/green"
+        android:id="@+id/textView2"
+        android:padding="5dp"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="团团一家 2015-12-05"
+        android:textColor="@color/black"
+        android:id="@+id/textView3"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <!--android:adjustViewBounds="true"去掉imageview中上下的空白-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/campus_activity_image_view"
+        android:adjustViewBounds="true"
+        android:src="@drawable/sea"
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="关键字：招新，报名，前端，后端，JAVASCRIPT"
+        android:textColor="@color/black"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/campus_activity_image_view"
+        android:layout_alignLeft="@+id/campus_activity_image_view"
+        android:layout_alignStart="@+id/campus_activity_image_view"/>
+
+</RelativeLayout>

@@ -18,6 +18,10 @@ import java.util.ArrayList;
 
 public class CustomDropDownListView extends LinearLayout {
 
+    private Context mContext;
+
+    private String mChoosedSchool;
+
     private TextView editText;
     private ImageView imageView;
     private PopupWindow popupWindow = null;
@@ -40,12 +44,20 @@ public class CustomDropDownListView extends LinearLayout {
         initView();
     }
 
+    public Context getmContext() {
+        return mContext;
+    }
+
+    public void setmContext(Context mContext) {
+        this.mContext = mContext;
+    }
+
     public void initView() {
         String infServie = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater layoutInflater;
         layoutInflater = (LayoutInflater) getContext().getSystemService(infServie);
-        View view = layoutInflater.inflate(R.layout.dropdownlist_view, this, true);
-        editText = (TextView) findViewById(R.id.text);
+        View view = layoutInflater.inflate(R.layout.dropdown_list_view, this, true);
+        editText = (TextView) findViewById(R.id.school_name_text_view);
         imageView = (ImageView) findViewById(R.id.btn);
         this.setOnClickListener(new OnClickListener() {
 
@@ -139,7 +151,7 @@ public class CustomDropDownListView extends LinearLayout {
             ListItemView listItemView = null;
             if (convertView == null) {
                 // 获取list_item布局文件的视图
-                convertView = inflater.inflate(R.layout.dropdown_list_item, null);
+                convertView = inflater.inflate(R.layout.dropdown_list_view_item, null);
 
                 listItemView = new ListItemView();
                 // 获取控件对象
@@ -155,14 +167,13 @@ public class CustomDropDownListView extends LinearLayout {
             }
 
             // 设置数据
-            listItemView.tv.setText(mData.get(position).toString());
-            final String text = mData.get(position).toString();
+            mChoosedSchool = mData.get(position).toString();
+            listItemView.tv.setText(mChoosedSchool);
             listItemView.layout.setOnClickListener(new OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
-                    editText.setText(text);
+                    editText.setText(mChoosedSchool);
                     closePopWindow();
                 }
             });

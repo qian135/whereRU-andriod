@@ -5,10 +5,12 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="gray">#666666</color>
-    <color name="green">#008000</color> <!--绿色 -->
+    <color name="gray_line">#e1e1e1</color> <!--用于分割的灰色线条颜色-->
+    <color name="gray_word">#8a8a8a</color> <!--字体的灰色-->
+    <color name="green">#2db23a</color> <!--绿色 -->
     <color name="aqua">#00FFFF</color> <!--浅绿色 -->
     <color name="light_sea_green">#20B2AA</color> <!--亮海蓝色 -->
-    <color name="sky_blue">#87CEEB</color> <!--天蓝色 -->
+    <color name="blue">#0cb9f7</color> <!--蓝色 -->
     <color name="red">#FF0000</color>
 
 </resources>

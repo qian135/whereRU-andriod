@@ -13,11 +13,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by zhang on 1/28/2016.
- */
-public class CampusTeamDetailsActivity extends Activity {
 
+public class CampusTeamDetailsActivity extends Activity {
 
     /*实现 校园团队->团队介绍->团队简介 ,部门介绍，团队相册，团队活动，申请加入
     5页面ViewPager切换的代码*/
@@ -28,13 +25,10 @@ public class CampusTeamDetailsActivity extends Activity {
     private ViewPager mCampusTeamDetailsViewPager;//校园活动细节这个大类的主ViewPager
     //存放 校园团队->团队介绍->团队简介 ,部门介绍，团队相册，团队活动，申请加入 5个View
     private List<View> mCampusTeamIntroduceDepartmentAlbumActivityJoinViews;
-//    private ImageView mCampusActivityIntroduceDetailJoinSlideBar;//滑动条
     //校园团队->团队介绍->团队简介 ,部门介绍，团队相册，团队活动，申请加入 3个TextView
     private TextView mCampusTeamIntroduceTextView, mCampusTeamDepartmentTextView,
         mCampusTeamAlbumTextView,mCampusTeamActivityTextView,mCampusTeamJoinTextView;;
-//    private int mCampusActivityIntroduceDetailJoinOffset = 0;//偏移量
     private int mCampusActivityIntroduceDetailJoinTextViewCurrentIndex = 0;//对应不同的TextView
-//    private int mCampusActivityIntroduceDetailJoinSlideBarWidth;//Image的宽度
 
 
     /*校园团队->团队介绍-> 团队简介 ,部门介绍，团队相册，团队活动，申请加入

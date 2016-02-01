@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 
 public class FirstActivity extends Activity {
-    boolean isFirstIn = false;
+    boolean isFirstIn;
 
     private static final int GO_HOME = 1000;
     private static final int GO_GUIDE = 1001;
@@ -66,7 +66,7 @@ public class FirstActivity extends Activity {
     }
 
     private void goHome() {
-        Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+        Intent intent = new Intent(FirstActivity.this, SignInActivity.class);
         FirstActivity.this.startActivity(intent);
         FirstActivity.this.finish();
     }

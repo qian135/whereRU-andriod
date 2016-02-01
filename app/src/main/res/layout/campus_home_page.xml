@@ -44,11 +44,11 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/campus_home_page_cursor"
+        android:id="@+id/campus_home_page_slide_bar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:scaleType="matrix"
-        android:src="@drawable/campus_activity_competition_team_slide_bar" />
+        android:src="@drawable/campus_home_page_slide_bar_icon" />
 
     <!--校园这个大类的主ViewPager-->
     <android.support.v4.view.ViewPager

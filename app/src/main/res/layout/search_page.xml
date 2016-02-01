@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--搜索主页布局-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/search_page_top_layout" />
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:background="#FFFFFF" >
+
+        <TextView
+            android:id="@+id/search_page_all_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="全部"
+            android:textColor="#000000"
+            android:textSize="22.0dip" />
+
+        <TextView
+            android:id="@+id/search_page_activity_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="活动"
+            android:textColor="#000000"
+            android:textSize="22.0dip" />
+
+        <TextView
+            android:id="@+id/search_page_competition_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="竞赛"
+            android:textColor="#000000"
+            android:textSize="22.0dip" />
+
+        <TextView
+            android:id="@+id/search_page_team_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="团队"
+            android:textColor="#000000"
+            android:textSize="22.0dip" />
+
+        <TextView
+            android:id="@+id/search_page_user_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="用户"
+            android:textColor="#000000"
+            android:textSize="22.0dip" />
+
+        <TextView
+            android:id="@+id/search_page_circle_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="圈子"
+            android:textColor="#000000"
+            android:textSize="22.0dip" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/search_page_slide_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="matrix"
+        android:src="@drawable/ic_action_content_remove" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/search_page_viewpager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:background="@color/white"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+
+</LinearLayout>

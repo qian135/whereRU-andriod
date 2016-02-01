@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--校园活动首页的总布局-->
+<!--校园竞赛首页的总布局-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

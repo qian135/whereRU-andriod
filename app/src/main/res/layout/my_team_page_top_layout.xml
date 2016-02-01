@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_bar_height"
+    android:background="@color/blue">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_team_page_top_layout_up_navigation_icon"
+        android:src="@drawable/up_navigation_icon"
+        android:layout_centerVertical="true"
+        android:paddingLeft="@dimen/up_navigation_icon_padding_left"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="个人中心"
+        android:textSize="@dimen/right_text_view_of_up_navigation_icon_text_size"
+        android:paddingLeft="@dimen/right_text_view_of_up_navigation_icon_padding_left"
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>

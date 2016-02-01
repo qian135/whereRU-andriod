@@ -26,6 +26,12 @@ public class MyViewPagerAdapter extends PagerAdapter {
         return view == object;
     }
 
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView(mViews.get(position));

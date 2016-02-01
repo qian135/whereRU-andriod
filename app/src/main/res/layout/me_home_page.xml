@@ -1,17 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 个人中心首页布局 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical" >
-      <TextView
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:src="@drawable/me_home_page_head_portrait_icon"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/textView15"
+            android:layout_alignStart="@+id/textView15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="信誉"
+            android:id="@+id/textView13"
+            android:paddingTop="10dp"
+            android:layout_below="@+id/imageView4"
+            android:layout_alignLeft="@+id/imageView8"
+            android:layout_alignStart="@+id/imageView8" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="积分"
+            android:id="@+id/textView14"
+            android:layout_alignBottom="@+id/textView13"
+            android:layout_alignRight="@+id/imageView9"
+            android:layout_alignEnd="@+id/imageView9" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="刘某某"
+            android:paddingLeft="5dp"
+            android:id="@+id/textView15"
+            android:layout_above="@+id/textView17"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="29dp"
+            android:layout_marginStart="29dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView8"
+            android:src="@drawable/me_home_page_credit_icon"
+            android:layout_above="@+id/textView13"
+            android:layout_toLeftOf="@+id/textView14"
+            android:layout_toStartOf="@+id/textView14"
+            android:layout_marginRight="29dp"
+            android:layout_marginEnd="29dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView9"
+            android:src="@drawable/me_home_page_point_icon"
+            android:layout_alignTop="@+id/imageView8"
+            android:layout_alignLeft="@+id/textView18"
+            android:layout_alignStart="@+id/textView18" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView10"
+            android:src="@drawable/me_home_page_balance_icon"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_above="@+id/textView13"
+            android:layout_toRightOf="@+id/textView14"
+            android:layout_toEndOf="@+id/textView14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="余额"
+            android:id="@+id/textView16"
+            android:layout_alignBottom="@+id/textView13"
+            android:layout_alignLeft="@+id/imageView10"
+            android:layout_alignStart="@+id/imageView10" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="3"
+            android:id="@+id/textView17"
+            android:layout_below="@+id/textView14"
+            android:layout_alignLeft="@+id/textView13"
+            android:layout_alignStart="@+id/textView13" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="100"
+            android:id="@+id/textView18"
+            android:layout_below="@+id/textView14"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="300"
+            android:id="@+id/textView19"
+            android:layout_below="@+id/textView13"
+            android:layout_alignLeft="@+id/textView16"
+            android:layout_alignStart="@+id/textView16" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="150****2525"
+            android:id="@+id/textView20"
+            android:layout_below="@+id/textView15"
+            android:layout_alignLeft="@+id/textView15"
+            android:layout_alignStart="@+id/textView15" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:background="#FFFFFF" >
+
+        <TextView
+            android:id="@+id/me_home_page_my_team_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="我的团队"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/me_home_page_competition_history_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="竞赛历史"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/me_home_page_activity_history_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="活动历史"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/me_home_page_data_modification_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="资料修改"
+            android:textColor="#000000"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/me_home_page_viewpager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="这里是我"
-        android:layout_centerVertical="true"
-        android:textColor="#000000"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        />
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:background="@color/white"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
 
 </LinearLayout>
