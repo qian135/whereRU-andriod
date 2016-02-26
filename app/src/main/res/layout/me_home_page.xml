@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <include layout="@layout/me_top_layout" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp">
-
 
         <ImageView
             android:layout_width="wrap_content"

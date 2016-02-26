@@ -1,50 +1,66 @@
 package com.android.etuan.whereru;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.LocalActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.etuan.whereru.bean.HotCampusActivityInformation;
-import com.android.etuan.whereru.utils.ViewFactory;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.android.etuan.whereru.utils.DpAndPxSwitch;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.androiddevelop.cycleviewpager.lib.HotCampusActivityCycleViewPager;
+public class CampusHomePageActivity extends Activity implements ViewPager.OnPageChangeListener {
 
-/**
- * Created by zhang on 1/30/2016.
- */
-public class CampusHomePageActivity extends Activity {
+    //帮助实现在ViewPager上实现Activity的切换
+    private LocalActivityManager mLocalActivityManager1;
 
-    private View mCampusHomePageView;
+    /* 顶部布局相关代码 */
 
-    /*该页面顶部滑动条相关代码*/
-    private int mSlideBarDivideNumber = 3;  //顶部滑动菜单划分的块数
-    private MySlideBarHandler mMySlideBarHandler;//顶部滑动条的处理类
-    private ImageView mSlideBar;//滑动条
-    private int mSlideBarCurrentIndex = 0;
+    private TextView mDropdownTextView;
+    private ImageView mDropdownImageView;
+
+    private PopupWindow mPopupWindow;
+    private ListView mCustomSpinnerListView;
+    private List<String> mCustomSpinnerListViewContent;
 
     private ImageButton mTopSearchImageButton;
-    
-    /*实现校园活动，校园竞赛，校园团队三页面ViewPager切换的代码*/
 
-    private View mCampusActivityHomePageView, mCampusCompetitionHomePageView,
-            mCampusTeamHomePageView;
+
+    /*该页面滑动条相关代码*/
+
+    private View mLinearLayoutView;
+    private ImageView mSlideBarImageView;
+
+    private int mScrollState;
+
+    private float mSlideBarWidth;
+    private int mSlideBarCurrentIndex;//设置滑动条上字体颜色，省得要遍历
+    private int mTopSlideBarDivideNumber = 3;
+
+    //设置动画时间
+    private long mAnimationDurationTime = 40;
+
+    private long mStartTime;
+    private long mCurrentTime;
+
+
+    /*实现 校园活动，校园竞赛，校园团队 三页面ViewPager切换的代码*/
 
     private ViewPager mCampusHomeViewPager;//校园这个大类的主ViewPager
     //存放 校园活动，校园竞赛，校园团队 3个View
@@ -52,134 +68,100 @@ public class CampusHomePageActivity extends Activity {
     //校园活动，校园竞赛，校园团队 3个TextView
     private TextView mCampusActivityTextView, mCampusCompetitionTextView, mCampusTeamTextView;
 
-    /*实现热门活动栏代码*/
-
-    private List<ImageView> mHotActivityViews = new ArrayList<>();//存放热门活动的ImageView
-    private List<HotCampusActivityInformation> mHotCampusActivityInformation = new ArrayList<>();
-    private HotCampusActivityCycleViewPager mHotCampusActivityCycleViewPager;
-
-    private String[] imageUrls = {
-            "http://img.taodiantong.cn/v55183/infoimg/2013-07/130720115322ky.jpg",
-            "http://pic30.nipic.com/20130626/8174275_085522448172_2.jpg",
-            "http://pic18.nipic.com/20111215/577405_080531548148_2.jpg",
-            "http://pic15.nipic.com/20110722/2912365_092519919000_2.jpg",
-            "http://pic.58pic.com/58pic/12/64/27/55U58PICrdX.jpg"};
-
-    /*实现校园活动列表项的代码*/
-
-    private ListView mCampusActivityListView; //校园活动列表的ListView
-
-    /*实现校园竞赛列表项的代码*/
-
-    private ListView mCampusCompetitionListView; //校园竞赛列表的ListView
-
-    /*实现校园团队列表项的代码*/
-
-    private ListView mCampusTeamListView; //校园团队列表的ListView
+    private MyViewPagerOnPageChangeListener mMyViewPagerOnPageChangeListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.campus_home_page);
 
+        //帮助实现在ViewPager上实现Activity的切换
+        mLocalActivityManager1 = new LocalActivityManager(this, true);
+        mLocalActivityManager1.dispatchCreate(savedInstanceState);
 
-         /*实现 校园活动，校园竞赛，校园团队 三页面ViewPager切换的代码*/
+        /* 顶部布局相关代码 */
 
-        //初始化 校园活动，校园竞赛，校园团队 下面滑动条的动画
-        initCampusActivityCompetitionTeamSlideBarAnimation();
-        //初始化 校园活动，校园竞赛，校园团队 标题栏的TextView
-        initCampusActivityCompetitionTeamTextView();
+
+        initCustomSpinner();
+
+
+        //设置顶部搜索图标的监听
+        mTopSearchImageButton = (ImageButton) findViewById(R.id.top_search);
+        mTopSearchImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CampusHomePageActivity.this, SearchPage.class);
+                startActivity(intent);
+            }
+        });
+
+        /*实现 校园活动，校园竞赛，校园团队 三页面ViewPager切换的代码*/
+
+        //初始化 校园活动，校园竞赛，校园团队 标题栏的TextView及下面的滑动条
+        initTextViewAndSlideBar();
         //校园活动，校园竞赛，校园团队 ViewPager的初始化
         initCampusActivityCompetitionTeamViewPager();
 
-
-
-         /*实现校园活动，竞赛，团队3个列表项的代码*/
-
-        //模仿列表项数据
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) {
-            list.add("item" + i);
-        }
-
-        //实现校园活动热门活动栏代码
-        configUniversalImageLoader();
-        initHotCampusActivityCycleViewPager();
-
-        //校园活动列表项代码
-
-        //注意因为在initCampusActivityCompetitionTeamViewPager已经将三个ViewPager的布局文件
-        // 都实例化过了，这里不需要再实例化了
-        mCampusActivityListView = (ListView) mCampusActivityCompetitionTeamViews
-                .get(0).findViewById(R.id.campus_activity_home_page_activity_list_view);
-        MyListViewAdapter myCampusActivityListViewAdapter = new MyListViewAdapter(list, this, 0);
-        mCampusActivityListView.setAdapter(myCampusActivityListViewAdapter);
-        //为校园活动ListView每项设置监听器，完成页面跳转
-        mCampusActivityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(CampusHomePageActivity.this, CampusActivityDetailsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-        //校园竞赛列表项代码
-        mCampusCompetitionListView = (ListView) mCampusActivityCompetitionTeamViews
-                .get(1).findViewById(R.id.campus_competition_list_view);
-        MyListViewAdapter myCampusCompetitionListViewAdapter = new MyListViewAdapter(list, this, 1);
-        mCampusCompetitionListView.setAdapter(myCampusCompetitionListViewAdapter);
-        //为校园竞赛ListView每项设置监听器，完成页面跳转
-        mCampusCompetitionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new
-                        Intent(CampusHomePageActivity.this, CampusCompetitionDetailsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //校园团队列表项代码
-        mCampusTeamListView = (ListView) mCampusActivityCompetitionTeamViews
-                .get(2).findViewById(R.id.campus_team_home_page_list_view);
-        MyListViewAdapter myCampusTeamListViewAdapter = new MyListViewAdapter(list, this, 2);
-        mCampusTeamListView.setAdapter(myCampusTeamListViewAdapter);
-
-        mCampusTeamListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new
-                        Intent(CampusHomePageActivity.this, CampusTeamDetailsActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
-    /**
-     * 初始化 校园活动，校园竞赛，校园团队 下面滑动条的动画
-     */
-    private void initCampusActivityCompetitionTeamSlideBarAnimation() {
+    private void initCustomSpinner() {
 
-        //注意CampusHomePageActivity并不是校园大类的主页，它是 圈子，校园，我 这个层面的页面
-        mSlideBar = (ImageView) findViewById
-                (R.id.campus_home_page_slide_bar);
-        mMySlideBarHandler = new MySlideBarHandler(this,mSlideBarDivideNumber,
-                R.drawable.campus_home_page_slide_bar_icon,mSlideBar);
+        mDropdownTextView = (TextView) findViewById(R.id.dropdown_text_view);
+        mDropdownImageView = (ImageView) findViewById(R.id.dropdown_image_view);
+
+        mCustomSpinnerListView = (ListView) getLayoutInflater().inflate(
+                R.layout.custom_spinner_list_view, null).findViewById(R.id.custom_spinner_list_view);
+
+        mCustomSpinnerListViewContent = new ArrayList<>();
+
+        int popupWindowWidth = mDropdownTextView.getLayoutParams().width;
+
+        mPopupWindow = new PopupWindow(mCustomSpinnerListView,
+                popupWindowWidth, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setBackgroundDrawable(ContextCompat.getDrawable(this, R.color.transparent));
+
+        mDropdownTextView = (TextView) findViewById(R.id.dropdown_text_view);
+        mDropdownImageView = (ImageView) findViewById(R.id.dropdown_image_view);
+
+        mDropdownImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPopupWindow.showAsDropDown(mDropdownTextView);
+            }
+        });
+
+        mCustomSpinnerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mDropdownTextView.setText(mCustomSpinnerListView
+                        .getItemAtPosition(position).toString());
+                mPopupWindow.dismiss();
+            }
+        });
+
+        mCustomSpinnerListViewContent.add("全部");
+        mCustomSpinnerListViewContent.add("正在进行");
+        mCustomSpinnerListViewContent.add("即将开始");
+        mCustomSpinnerListViewContent.add("已结束");
+        mCustomSpinnerListView.setAdapter(
+                new CustomSpinnerAdapter(this, mCustomSpinnerListViewContent));
 
     }
 
 
     /**
-     * 初始化 校园活动，校园竞赛，校园团队 标题栏的TextView（这里主要是实例化，并设置监听）
+     * 初始化 校园活动，校园竞赛，校园团队 标题栏的TextView及下面的滑动条
+     * （这里主要是实例化，并设置监听）
      */
-    private void initCampusActivityCompetitionTeamTextView() {
+    private void initTextViewAndSlideBar() {
+
         mCampusActivityTextView = (TextView) findViewById(R.id.campus_activity_text_view);
         mCampusCompetitionTextView = (TextView) findViewById(R.id.campus_competition_text_view);
         mCampusTeamTextView = (TextView) findViewById(R.id.campus_team_text_view);
 
-        //给 校园活动，校园竞赛，校园团队 标题栏的TextView 赋值其对应的ViewPager中View页面的编号，
+        //给 校园活动，校园竞赛，校园团队 标题栏的TextView赋值其对应的ViewPager中View页面的编号，
         //这样当点击这些TextView中的文字的时候，将该编号值赋给mCampusHomeViewPagerCurrentNumber，
         //然后ViewPage.setCurrentItem(mCampusHomeViewPagerCurrentNumber)即可
 
@@ -189,6 +171,12 @@ public class CampusHomePageActivity extends Activity {
                 .setOnClickListener(new MyOnClickListener(1));
         mCampusTeamTextView
                 .setOnClickListener(new MyOnClickListener(2));
+
+        //主要是为该页面滑动条服务的
+
+        mLinearLayoutView = findViewById(R.id.campus_home_page_text_view_linear_layout);
+        mSlideBarImageView = (ImageView) findViewById(R.id.campus_home_page_slide_bar);
+        calculateSlideBarWidth(); //计算滑动条宽度
 
     }
 
@@ -201,29 +189,184 @@ public class CampusHomePageActivity extends Activity {
 
         mCampusActivityCompetitionTeamViews = new ArrayList<>();
 
-        LayoutInflater mLayoutInflater = LayoutInflater.from(this);
 
-        mCampusActivityHomePageView = mLayoutInflater
-                .inflate(R.layout.campus_activity_home_page, null);
-        mCampusCompetitionHomePageView = mLayoutInflater
-                .inflate(R.layout.campus_competition_home_page, null);
-        mCampusTeamHomePageView = mLayoutInflater
-                .inflate(R.layout.campus_team_home_page, null);
+        Intent intent0 = new Intent(this, CampusActivityHomePageActivity.class);
+        mCampusActivityCompetitionTeamViews.add(getView("CampusActivityHomePageActivity", intent0));
 
-        mCampusActivityCompetitionTeamViews.add(mCampusActivityHomePageView);
-        mCampusActivityCompetitionTeamViews.add(mCampusCompetitionHomePageView);
-        mCampusActivityCompetitionTeamViews.add(mCampusTeamHomePageView);
+        Intent intent1 = new Intent(this, CampusCompetitionHomePageActivity.class);
+        mCampusActivityCompetitionTeamViews.add(getView("CampusCompetitionHomePageActivity", intent1));
+
+        Intent intent2 = new Intent(this, CampusTeamHomePageActivity.class);
+        mCampusActivityCompetitionTeamViews.add(getView("CampusTeamHomePageActivity", intent2));
 
         mCampusHomeViewPager
                 .setAdapter(new MyViewPagerAdapter(mCampusActivityCompetitionTeamViews));
-
-        //主要是为该页面滑动条服务的
-        MyViewPagerOnPageChangeListener myViewPagerOnPageChangeListener =
-                new MyViewPagerOnPageChangeListener(mMySlideBarHandler.getSlideBarMoveUnit(),
-                        mSlideBarCurrentIndex, mSlideBar);
-        mCampusHomeViewPager.setOnPageChangeListener(myViewPagerOnPageChangeListener);
+        mCampusHomeViewPager.addOnPageChangeListener(this);
 
     }
+
+    //帮助在ViewPager上实现Activity的切换
+    private View getView(String id, Intent intent) {
+        return mLocalActivityManager1.startActivity(id, intent).getDecorView();
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        //防止动画触发频率太高
+//        mCurrentTime = System.currentTimeMillis();
+//        if (mScrollState == ViewPager.SCROLL_STATE_DRAGGING && (mCurrentTime - mStartTime > 250)) {
+//            ObjectAnimator.ofFloat(mSlideBarImageView, "translationX",
+//                    mSlideBarImageView.getTranslationX(),
+//                    position * mSlideBarWidth + positionOffset * mSlideBarWidth)
+//                    .setDuration(mAnimationDurationTime).start();
+//            mStartTime = mCurrentTime;
+//        }
+
+        //正在拖动界面，执行动画使滑动条与手一起移动
+        if (mScrollState == ViewPager.SCROLL_STATE_DRAGGING) {
+            ObjectAnimator.ofFloat(mSlideBarImageView, "translationX",
+                    mSlideBarImageView.getTranslationX(),
+                    position * mSlideBarWidth + positionOffset * mSlideBarWidth)
+                    .setDuration(mAnimationDurationTime).start();
+            mStartTime = mCurrentTime;
+        }
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+        refreshDropdownListContent(position);
+
+        //最终选中哪个页面就将滑动条移到哪个页面去，不过单靠这个动画是不够的，因为如果滑动幅度不大，
+        //没切换到下一个Tab页，是不会执行onPageSelected这个方法的，这样滑动条就可能停在半路了，所
+        //以在onPageScrollStateChanged再执行了一次动画帮助滑动条滑回原来的位置
+        ObjectAnimator.ofFloat(mSlideBarImageView, "translationX",
+                mSlideBarImageView.getTranslationX(), position * mSlideBarWidth)
+                .setDuration(mAnimationDurationTime).start();
+
+        ViewGroup viewGroup = (ViewGroup) mLinearLayoutView;
+        TextView textView1 = (TextView) viewGroup.getChildAt(mSlideBarCurrentIndex);
+        textView1.setTextColor(ContextCompat.getColor(this, R.color.black));//设置原先所在字体的颜色
+        TextView textView2 = (TextView) viewGroup.getChildAt(position);
+        textView2.setTextColor(ContextCompat.getColor(this, R.color.blue));//设置要滑向的字体的颜色
+
+        mSlideBarCurrentIndex = position;
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+        mScrollState = state;
+        if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
+            ObjectAnimator.ofFloat(mSlideBarImageView, "translationX",
+                    mSlideBarImageView.getTranslationX(), mSlideBarCurrentIndex * mSlideBarWidth)
+                    .setDuration(mAnimationDurationTime).start();
+        }
+
+    }
+
+    int getmSlideBarCurrentIndex() {
+        return mSlideBarCurrentIndex;
+    }
+
+    /**
+     * 计算滑动条宽度
+     * 左右两边各留10dp在布局文件 campus_home_page.xml 中写死
+     */
+    private void calculateSlideBarWidth() {
+
+        DisplayMetrics dm = new DisplayMetrics();
+        //因为getWindowManager()是Activity的方法，所以从Activity传一个Context过来，然后进行强制
+        //类型转换成Activity
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenW = dm.widthPixels;// 获取分辨率宽度
+
+        //计算滑动条的宽度
+        ViewGroup.LayoutParams slideBarImageViewLayoutParams = mSlideBarImageView.getLayoutParams();
+        mSlideBarWidth = slideBarImageViewLayoutParams.width =
+                ((screenW - 2 * DpAndPxSwitch.dp2px(this, 10)) / mTopSlideBarDivideNumber);
+
+    }
+
+
+    /**
+     * 当在 校园活动，校园竞赛，校园团队 三者间切换时，界面顶部下拉列表的内容能做相应变化
+     */
+    private void refreshDropdownListContent(int position) {
+
+        mCustomSpinnerListViewContent.clear();
+
+        if (position == 0 || position == 1) {
+            mDropdownTextView.setText("全部");
+            mCustomSpinnerListViewContent.add("全部");
+            mCustomSpinnerListViewContent.add("正在进行");
+            mCustomSpinnerListViewContent.add("即将开始");
+            mCustomSpinnerListViewContent.add("已结束");
+        } else {
+            mDropdownTextView.setText("校园组织");
+            mCustomSpinnerListViewContent.add("校园组织");
+            mCustomSpinnerListViewContent.add("校园社团");
+            mCustomSpinnerListViewContent.add("兴趣团队");
+            mCustomSpinnerListViewContent.add("竞赛团队");
+            mCustomSpinnerListViewContent.add("创业团队");
+        }
+
+        mCustomSpinnerListView.setAdapter(
+                new CustomSpinnerAdapter(this, mCustomSpinnerListViewContent));
+
+    }
+
+    class CustomSpinnerAdapter extends BaseAdapter {
+
+        private Context mContext;
+        private List<String> mList;
+
+        private LayoutInflater mLayoutInflater;
+
+        public CustomSpinnerAdapter(Context context, List<String> list) {
+            mContext = context;
+            mList = list;
+            mLayoutInflater = LayoutInflater.from(mContext);
+        }
+
+        @Override
+        public int getCount() {
+            return mList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder = null;
+            if (convertView == null) {
+                convertView = mLayoutInflater.inflate(R.layout.custom_spinner_list_view_item, null);
+                viewHolder = new ViewHolder();
+                viewHolder.mTextView = (TextView) convertView.findViewById(
+                        R.id.custom_spinner_list_view_item_text_view);
+                convertView.setTag(viewHolder);
+            }
+            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder.mTextView.setText(mList.get(position));
+            return convertView;
+        }
+    }
+
+    public class ViewHolder {
+        public TextView mTextView;
+    }
+
 
     /**
      * 使点击 校园活动，校园竞赛，校园团队 的TextView也能完成ViewPager的切换
@@ -239,106 +382,9 @@ public class CampusHomePageActivity extends Activity {
 
         @Override
         public void onClick(View v) {
-
-            //下面这句代码是不必要的，因为执行了ViewPager.setCurrentItem()，自然会去执行
-            //ViewPager.OnPageChangeListener中的onPageSelected(int arg0)，而且很有可能arg0的值就是
-            //从我这里传过去的mViewPagerNumber获取的，而在那个方法里我执行了
-            // mCampusHomeViewPagerCurrentNumber = arg0了
-
-            //mCampusHomeViewPagerCurrentNumber = mViewPagerNumber;
-
-            mCampusHomeViewPager
-                    .setCurrentItem(mViewPagerNumber);
+            mCampusHomeViewPager.setCurrentItem(mViewPagerNumber);
         }
 
-    }
-
-    /*实现广告栏代码*/
-
-    //    @SuppressLint("NewApi")
-    private void initHotCampusActivityCycleViewPager() {
-
-        mHotCampusActivityCycleViewPager = (HotCampusActivityCycleViewPager) getFragmentManager()
-                .findFragmentById(R.id.fragment_cycle_viewpager_content);
-        if (mHotCampusActivityCycleViewPager == null) {
-            System.out.println("HotCampusActivityCycleViewPager == null");
-        }
-
-        for (int i = 0; i < imageUrls.length; i++) {
-            HotCampusActivityInformation info = new HotCampusActivityInformation();
-            info.setUrl(imageUrls[i]);
-            info.setContent("图片-->" + i);
-            mHotCampusActivityInformation.add(info);
-        }
-
-        // 将最后一个ImageView添加进来
-        mHotActivityViews.add(ViewFactory.getImageView(this, mHotCampusActivityInformation
-                .get(mHotCampusActivityInformation.size() - 1).getUrl()));
-        for (int i = 0; i < mHotCampusActivityInformation.size(); i++) {
-            mHotActivityViews.add(ViewFactory.getImageView(this, mHotCampusActivityInformation
-                    .get(i).getUrl()));
-        }
-        // 将第一个ImageView添加进来
-        mHotActivityViews.add(ViewFactory.getImageView(this, mHotCampusActivityInformation
-                .get(0).getUrl()));
-
-        // 设置循环，在调用setData方法前调用
-        mHotCampusActivityCycleViewPager.setCycle(true);
-
-        // 在加载数据前设置是否循环
-        mHotCampusActivityCycleViewPager.setData(mHotActivityViews, mHotCampusActivityInformation, mAdCycleViewListener);
-        //设置轮播
-        mHotCampusActivityCycleViewPager.setWheel(true);
-
-        // 设置轮播时间，默认5000ms
-        mHotCampusActivityCycleViewPager.setTime(2000);
-        //设置圆点指示图标组居中显示，默认靠右
-        mHotCampusActivityCycleViewPager.setIndicatorCenter();
-
-    }
-
-    private HotCampusActivityCycleViewPager.ImageCycleViewListener mAdCycleViewListener =
-            new HotCampusActivityCycleViewPager.ImageCycleViewListener() {
-
-                @Override
-                public void onImageClick(HotCampusActivityInformation info,
-                                         int position, View imageView) {
-                    if (mHotCampusActivityCycleViewPager.isCycle()) {
-                        Toast.makeText(CampusHomePageActivity.this,
-                                "position-->" + info.getContent(), Toast.LENGTH_SHORT)
-                                .show();
-                        //跳转到活动详情的主页面
-                        Intent intent = new
-                                Intent(CampusHomePageActivity.this, CampusActivityDetailsActivity.class);
-                        startActivity(intent);
-                    }
-
-                }
-
-            };
-
-    /**
-     * 配置UniversalImageLoader(注：这是一个异步加载图片的开源框架)
-     */
-    private void configUniversalImageLoader() {
-        // 初始化ImageLoader
-        @SuppressWarnings("deprecation")
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showStubImage(R.drawable.icon_stub) // 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.drawable.icon_empty) // 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.drawable.icon_error) // 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisc(true) // 设置下载的图片是否缓存在SD卡中
-                        // .displayer(new RoundedBitmapDisplayer(20)) // 设置成圆角图片
-                .build(); // 创建配置过得DisplayImageOption对象
-
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration
-                .Builder(getApplicationContext()).defaultDisplayImageOptions(options)
-                .threadPriority(Thread.NORM_PRIORITY - 2)
-                .denyCacheImageMultipleSizesInMemory()
-                .discCacheFileNameGenerator(new Md5FileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.LIFO).build();
-        ImageLoader.getInstance().init(config);
     }
 
 }

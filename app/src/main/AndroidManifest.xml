@@ -30,7 +30,7 @@
         </activity>
 
         <!--登陆界面-->
-        <activity android:name=".SignInActivity">
+        <activity android:name=".LoginInActivity">
 
         </activity>
 
@@ -56,6 +56,21 @@
 
         <!-- 校园这个大类的首页 -->
         <activity android:name=".CampusHomePageActivity">
+
+        </activity>
+
+        <!-- 校园活动首页面 -->
+        <activity android:name=".CampusActivityHomePageActivity">
+
+        </activity>
+
+        <!-- 校园竞赛首页面 -->
+        <activity android:name=".CampusCompetitionHomePageActivity">
+
+        </activity>
+
+        <!-- 校园竞赛首页面 -->
+        <activity android:name=".CampusTeamHomePageActivity">
 
         </activity>
 

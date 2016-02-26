@@ -1,98 +1,101 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--校园竞赛首页的总布局-->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--校园竞赛首页的总布局-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/competition_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_margin_left_or_right"
+        android:includeFontPadding="false"
         android:text="2016创青春大学生创业竞赛"
         android:textColor="@color/black"
-        android:id="@+id/competition_title"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:textSize="25sp"/>
+        android:textSize="20sp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="进行中"
-        android:textColor="@color/green"
-        android:id="@+id/competition_state"
-        android:padding="5dp"
-        android:layout_alignBottom="@+id/competition_title"
-        android:layout_toRightOf="@+id/competition_title" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="杭电团委"
-        android:textColor="@color/gray_word"
         android:id="@+id/competition_sponsor"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:layout_below="@+id/competition_title" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2015-12-11"
-        android:textColor="@color/gray_word"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:id="@+id/competition_create_time"
         android:layout_below="@+id/competition_title"
-        android:layout_toRightOf="@+id/competition_sponsor" />
+        android:layout_marginLeft="@dimen/layout_margin_left_or_right"
+        android:layout_marginTop="@dimen/view_small_padding"
+        android:includeFontPadding="false"
+        android:text="杭电团委"
+        android:textColor="@color/gray_word" />
+
+    <TextView
+        android:id="@+id/competition_create_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/competition_title"
+        android:layout_marginLeft="@dimen/layout_margin_left_or_right"
+        android:layout_marginTop="@dimen/view_small_padding"
+        android:layout_toRightOf="@+id/competition_sponsor"
+        android:includeFontPadding="false"
+        android:text="2015-12-11"
+        android:textColor="@color/gray_word" />
+
+    <TextView
+        android:id="@+id/competition_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/competition_title"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:includeFontPadding="false"
+        android:text="进行中"
+        android:textColor="@color/green" />
 
     <!--android:adjustViewBounds="true"去掉imageview中上下的空白-->
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/competition_poster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/competition_sponsor"
+        android:layout_marginLeft="@dimen/layout_margin_left_or_right"
+        android:layout_marginRight="@dimen/layout_margin_left_or_right"
+        android:layout_marginTop="@dimen/view_small_padding"
         android:adjustViewBounds="true"
-        android:src="@drawable/sea"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:layout_below="@+id/competition_sponsor" />
+        android:scaleType="fitXY"
+        android:src="@drawable/sea" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="报名时间："
-        android:textColor="@color/black"
-        android:paddingLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_alignBottom="@+id/competition_poster" />
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/competition_poster"
+        android:layout_marginLeft="@dimen/layout_margin_left_or_right"
+        android:layout_marginRight="@dimen/layout_margin_left_or_right"
+        android:background="@drawable/text_view_background_shadow"
+        android:padding="@dimen/view_padding">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2015-12-12"
-        android:textColor="@color/black"
-        android:paddingLeft="90dp"
-        android:id="@+id/competition_enroll_start_time"
-        android:layout_marginBottom="10dp"
-        android:layout_alignBottom="@+id/competition_poster" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="报名时间："
+            android:textColor="@color/white" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="——"
-        android:textColor="@color/black"
-        android:paddingLeft="165dp"
-        android:layout_marginBottom="10dp"
-        android:layout_alignBottom="@+id/competition_poster" />
+        <TextView
+            android:id="@+id/competition_enroll_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015-12-12"
+            android:textColor="@color/white" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2015-12-15"
-        android:textColor="@color/black"
-        android:paddingLeft="190dp"
-        android:id="@+id/competition_enroll_end_time"
-        android:layout_marginBottom="10dp"
-        android:layout_alignBottom="@+id/competition_poster" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="——"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/competition_enroll_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015-12-15"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
 </RelativeLayout>

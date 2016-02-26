@@ -17,16 +17,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.etuan.whereru.adapter.ActivityListViewAdapter;
-import com.android.etuan.whereru.adapter.CompetitionListViewAdapter;
-import com.android.etuan.whereru.adapter.TeamListViewAdapter;
+import com.android.etuan.whereru.utils.InterfaceConstant;
 import com.android.etuan.whereru.utils.httputil.HttpSearch;
+import com.android.etuan.whereru.utils.jsonjavabean.Coterie;
+import com.android.etuan.whereru.utils.jsonjavabean.Race;
+import com.android.etuan.whereru.utils.jsonjavabean.Team;
+import com.android.etuan.whereru.utils.jsonjavabean.User;
+import com.android.etuan.whereru.utils.jsonjavabean.mActivity;
 import com.android.etuan.whereru.utils.jsonutil.JSONSearchs;
-import com.android.etuan.whereru.utils.searchclass.Activities;
-import com.android.etuan.whereru.utils.searchclass.Coterie;
-import com.android.etuan.whereru.utils.searchclass.Race;
-import com.android.etuan.whereru.utils.searchclass.Team;
-import com.android.etuan.whereru.utils.searchclass.User;
 
 import org.json.JSONException;
 
@@ -44,7 +42,7 @@ public class SearchPage extends Activity {
     private static final int USER = 4;
     private static final int COTERIE = 5;
 
-    private ArrayList<Activities> activities;
+    private ArrayList<mActivity> activities;
     private ArrayList<Race> races;
     private static ArrayList<Team> teams;
     private static ArrayList<User> users;
@@ -55,9 +53,7 @@ public class SearchPage extends Activity {
     private MyViewPagerOnPageChangeListener mMyViewPagerOnPageChangeListener;
 
     private int mSlideBarDivideNumber = 6;  //顶部滑动菜单划分的块数
-    private MySlideBarHandler mMySlideBarHandler;//顶部滑动条的处理类
     private ImageView mSlideBar;//滑动条
-    private int mSlideBarCurrentIndex = 0;
 
     private EditText mSearchBoxEditText;
 
@@ -98,10 +94,8 @@ public class SearchPage extends Activity {
 
          /*实现 搜索->全部，活动，竞赛，团队，用户，圈子 6页面ViewPager切换的代码*/
 
-        //初始化 搜索->全部，活动，竞赛，团队，用户，圈子 下面滑动条的动画
-        initSearchAllActivityCompetitionTeamUserCircleSlideBarSlideBarAnimation();
-        //初始化 搜索->全部，活动，竞赛，团队，用户，圈子 标题栏的TextView
-        initSearchAllActivityCompetitionTeamUserCircleTextView();
+        //初始化 搜索->全部，活动，竞赛，团队，用户，圈子 标题栏的TextView及下面的滑动条
+        initTextViewAndSlideBar();
         //搜索->全部，活动，竞赛，团队，用户，圈子 ViewPager的初始化
         initSearchAllActivityCompetitionTeamUserCircleViewPager();
 
@@ -136,10 +130,12 @@ public class SearchPage extends Activity {
         for (int i = 0; i < 1000; i++) {
             list.add("item" + i);
         }
+
         //校园活动列表项代码
 
         //注意因为在initCampusActivityCompetitionTeamViewPager已经将三个ViewPager的布局文件
         // 都实例化过了，这里不需要再实例化了
+
 //        mCampusActivityListView = (ListView) mSearchPageViews
 //                .get(1).findViewById(R.id.campus_activity_home_page_activity_list_view);
 //        MyListViewAdapter myCampusActivityListViewAdapter = new MyListViewAdapter(list, this, 0);
@@ -157,7 +153,7 @@ public class SearchPage extends Activity {
     }
 
     private void getStartSearch() {
-        HttpSearch.setContext(SearchPage.this);
+//        HttpSearch.setContext(SearchPage.this);
 
         if (mSearchBoxEditText.getText().toString().equals(""))
             Toast.makeText(SearchPage.this, "请输入相关信息", Toast.LENGTH_SHORT).show();
@@ -167,136 +163,119 @@ public class SearchPage extends Activity {
             Handler handler = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
-                    String s = "";
-                    if (msg.what == 0x123) {
-                        System.out.println("获取搜索信息失败");
-                    } else if (msg.what == 0x234) {
+                    if (msg.what == InterfaceConstant.GET_FAIL) {
+                        Toast.makeText(SearchPage.this, "获取搜索信息失败", Toast.LENGTH_SHORT).show();
+                    } else if (msg.what == InterfaceConstant.GET_SUCCESS) {
                         String result = msg.getData().getString("data");
-
                         try {
                             JSONSearchs.GetInfo(result, type);
-//                            System.out.println(type);
-                            int size = 0;
-                            switch (type) {
-                                case ACTIVITY:
-                                    activities = JSONSearchs.getActivities();
-                                    for (int i = 0; i < activities.size(); i++) {
-                                        System.out.println(activities.get(i).getTitle());
-                                        System.out.println(activities.get(i).getAuthorName());
-                                        System.out.println(activities.get(i).getCreated());
-                                        System.out.println(activities.get(i).getEnded());
-                                        System.out.println(activities.get(i).getImgUrl());
-                                        System.out.println(activities.get(i).getStarted());
-                                    }
-                                    //加载校园活动列表项代码
-                                    mCampusActivityListView = (ListView) mSearchPageViews
-                                            .get(1).findViewById(R.id.campus_activity_home_page_activity_list_view);
-                                    ActivityListViewAdapter activityListViewAdapter = new
-                                            ActivityListViewAdapter(activities, SearchPage.this);
-                                    mCampusActivityListView.setAdapter(activityListViewAdapter);
-                                    //为校园活动ListView每项设置监听器，完成页面跳转
-                                    mCampusActivityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                            Intent intent = new
-                                                    Intent(SearchPage.this, CampusActivityDetailsActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    });
-
-
-                                    break;
-                                case RACE:
-                                    races = JSONSearchs.getRaces();
-                                    //加载校园竞赛列表项代码
-                                    mCampusCompetitionListView = (ListView) mSearchPageViews
-                                            .get(2).findViewById(R.id.campus_competition_list_view);
-                                    CompetitionListViewAdapter competitionListViewAdapter = new
-                                            CompetitionListViewAdapter(races, SearchPage.this);
-                                    mCampusCompetitionListView.setAdapter(competitionListViewAdapter);
-                                    //为校园竞赛ListView每项设置监听器，完成页面跳转
-                                    mCampusCompetitionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                            Intent intent = new
-                                                    Intent(SearchPage.this, CampusCompetitionDetailsActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    });
-
-                                    break;
-                                case TEAM:
-
-                                    teams = JSONSearchs.getTeams();
-                                    //加载校园团队列表项代码
-                                    mCampusTeamListView = (ListView) mSearchPageViews
-                                            .get(3).findViewById(R.id.campus_team_home_page_list_view);
-                                    TeamListViewAdapter teamListViewAdapter = new
-                                            TeamListViewAdapter(teams, SearchPage.this);
-                                    mCampusTeamListView.setAdapter(teamListViewAdapter);
-                                    //为校园竞赛ListView每项设置监听器，完成页面跳转
-                                    mCampusTeamListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                            Intent intent = new
-                                                    Intent(SearchPage.this, CampusTeamDetailsActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    });
-
-                                    break;
-                                case USER:
-                                    users = JSONSearchs.getUsers();
-                                    size = users.size();
-                                    for (int i = 0; i < users.size(); i++) {
-                                        s += users.get(i).getName();
-                                    }
-                                    break;
-                                case COTERIE:
-                                    coteries = JSONSearchs.getCoteries();
-                                    size = coteries.size();
-                                    for (int i = 0; i < coteries.size(); i++) {
-                                        s += coteries.get(i).getName();
-                                    }
-                                    break;
-                            }
-                            if (size != 0) {
-                                //txt_searchInfo.setText(s);
-                            } else {
-//                                txt_searchInfo
-//                                        .setText("在 " + searchType + " 中没有找到与" + keyWord + "相关的信息");
-                            }
-                            //System.out.println("JSON解析完成 内容长度为"+activity.length+"内容是"+s);
                         } catch (JSONException e) {
-//                            txt_searchInfo.setText("JSON解析失败");
                             e.printStackTrace();
                         }
+                        int size = 0;
+                        switch (type) {
+                            case ACTIVITY:
+                                activities = JSONSearchs.getActivities();
+                                //加载校园活动列表项代码
+
+                                //因为原来的校园活动列表页布局还掺杂了很多其他东西，不方便复用，所以重新搞了个布局
+                                mCampusActivityListView = (ListView) mSearchPageViews.get(1)
+                                        .findViewById(R.id.search_page_campus_activity_list_view);
+//                                CampusActivityListViewAdapter campusActivityListViewAdapter = new
+//                                        CampusActivityListViewAdapter(SearchPage.this,activities);
+//                                campusActivityListViewAdapter.setmActivityDataList(activities);
+//                                mCampusActivityListView.setAdapter(campusActivityListViewAdapter);
+                                //为校园活动ListView每项设置监听器，完成页面跳转
+                                mCampusActivityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        Intent intent = new
+                                                Intent(SearchPage.this, CampusActivityDetailsActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                                break;
+
+                            case RACE:
+//                                    races = JSONSearchs.getRaces();
+                                //加载校园竞赛列表项代码
+                                mCampusCompetitionListView = (ListView) mSearchPageViews
+                                        .get(2).findViewById(R.id.campus_competition_list_view);
+//                                    CampusCompetitionListViewAdapter competitionListViewAdapter = new
+//                                            CampusCompetitionListViewAdapter(races, SearchPage.this);
+//                                    mCampusCompetitionListView.setAdapter(competitionListViewAdapter);
+                                //为校园竞赛ListView每项设置监听器，完成页面跳转
+                                mCampusCompetitionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        Intent intent = new
+                                                Intent(SearchPage.this, CampusCompetitionDetailsActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                break;
+                            case TEAM:
+
+//                                    teams = JSONSearchs.getTeams();
+                                //加载校园团队列表项代码
+                                mCampusTeamListView = (ListView) mSearchPageViews
+                                        .get(3).findViewById(R.id.campus_team_home_page_list_view);
+//                                    CampusTeamListViewAdapter teamListViewAdapter = new
+//                                            CampusTeamListViewAdapter(teams, SearchPage.this);
+//                                    mCampusTeamListView.setAdapter(teamListViewAdapter);
+                                //为校园竞赛ListView每项设置监听器，完成页面跳转
+                                mCampusTeamListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        Intent intent = new
+                                                Intent(SearchPage.this, CampusTeamDetailsActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                break;
+                            case USER:
+//                                    users = JSONSearchs.getUsers();
+//                                    size = users.size();
+//                                    for (int i = 0; i < users.size(); i++) {
+//                                        s += users.get(i).getName();
+//                                    }
+                                break;
+                            case COTERIE:
+//                                    coteries = JSONSearchs.getCoteries();
+//                                    size = coteries.size();
+//                                    for (int i = 0; i < coteries.size(); i++) {
+//                                        s += coteries.get(i).getName();
+//                                    }
+                                break;
+                        }
+                        if (size != 0) {
+                            //txt_searchInfo.setText(s);
+                        } else {
+//                                txt_searchInfo
+//                                        .setText("在 " + searchType + " 中没有找到与" + keyWord + "相关的信息");
+                        }
+                        //System.out.println("JSON解析完成 内容长度为"+activity.length+"内容是"+s);
                     }
                     super.handleMessage(msg);
                 }
             };
-            HttpSearch.setHandler(handler);
-            HttpSearch.getSearch(keyWord, type);
+            HttpSearch.setmContext(SearchPage.this);
+            HttpSearch.setmHandler(handler);
+            HttpSearch.search(keyWord, type);
         }
     }
 
     /*实现 搜索->全部，活动，竞赛，团队，用户，圈子 6页面ViewPager切换的代码*/
 
-    /**
-     * 初始化 搜索->全部，活动，竞赛，团队，用户，圈子 下面滑动条的动画
-     */
-
-    private void initSearchAllActivityCompetitionTeamUserCircleSlideBarSlideBarAnimation() {
-        mSlideBar = (ImageView) findViewById(R.id.search_page_slide_bar);
-        mMySlideBarHandler = new MySlideBarHandler(this, mSlideBarDivideNumber,
-                R.drawable.search_page_slide_bar_icon, mSlideBar);
-    }
 
     /**
-     * 初始化 搜索->全部，活动，竞赛，团队，用户，圈子 标题栏的TextView
+     * 初始化 搜索->全部，活动，竞赛，团队，用户，圈子 标题栏的TextView及下面的滑动条
      * （这里主要是实例化，并设置监听）
      */
-    private void initSearchAllActivityCompetitionTeamUserCircleTextView() {
+    private void initTextViewAndSlideBar() {
+
         mSearchAllTextView = (TextView)
                 findViewById(R.id.search_page_all_text_view);
         mSearchActivityTextView = (TextView)
@@ -317,6 +296,8 @@ public class SearchPage extends Activity {
         mSearchUserTextView.setOnClickListener(new MyOnClickListener(4));
         mSearchCircleTextView.setOnClickListener(new MyOnClickListener(5));
 
+        mSlideBar = (ImageView) findViewById(R.id.search_page_slide_bar);
+
     }
 
     /**
@@ -334,7 +315,7 @@ public class SearchPage extends Activity {
         mSearchAllPageView = mLayoutInflater
                 .inflate(R.layout.search_all_page, null);
         mSearchActivityPageView = mLayoutInflater//
-                .inflate(R.layout.campus_activity_home_page, null);
+                .inflate(R.layout.search_activity_page, null);
         mSearchCompetitionPageView = mLayoutInflater//
                 .inflate(R.layout.campus_competition_home_page, null);
         mSearchTeamPageView = mLayoutInflater//
@@ -359,10 +340,11 @@ public class SearchPage extends Activity {
 
         //主要是为该页面滑动条服务的
 
+        View view = findViewById(R.id.search_page_text_view_linear_layout);
+
         mMyViewPagerOnPageChangeListener =
-                new MyViewPagerOnPageChangeListener(mMySlideBarHandler.getSlideBarMoveUnit(),
-                        mSlideBarCurrentIndex, mSlideBar);
-        mSearchPageViewPager.setOnPageChangeListener(mMyViewPagerOnPageChangeListener);
+                new MyViewPagerOnPageChangeListener(this, view, mSlideBar, mSlideBarDivideNumber);
+        mSearchPageViewPager.addOnPageChangeListener(mMyViewPagerOnPageChangeListener);
 
     }
 

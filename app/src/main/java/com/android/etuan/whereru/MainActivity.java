@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +18,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //帮助实现在ViewPager上实现Activity的切换
     private LocalActivityManager mLocalActivityManager;
 
-    //顶部搜索图标
-    private ImageView mTopSearch;
-
     /*实现 圈子,校园和我 三者底部导航栏的代码*/
 
-    //这是圈子，校园，我 那个层面的ViewPaper，通过自定义使之不允许滑动
+    //这是 圈子，校园，我 那个层面的ViewPaper，通过自定义使之不允许滑动
     private CircleCampusMeViewPager mCircleCampusMeViewPager;
     private PagerAdapter mCircleCampusMeViewPagerAdapter;
     private List<View> mCircleCampusMeViews;//存放 圈子，校园，我 3个View
@@ -35,26 +32,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageButton mCircleNavigationBarImageButton;
     private ImageButton mCampusNavigationBarImageButton;
     private ImageButton mMeNavigationBarImageButton;
-
+    //圈子，校园，我 3个TextView
+    private TextView mCircleNavigationBarTextView;
+    private TextView mCampusNavigationBarTextView;
+    private TextView mMeNavigationBarTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //帮助实现在ViewPager上实现Activity的切换
         mLocalActivityManager = new LocalActivityManager(this, true);
         mLocalActivityManager.dispatchCreate(savedInstanceState);
-
-        //设置顶部搜索图标的监听
-        mTopSearch = (ImageView) findViewById(R.id.top_search);
-        mTopSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SearchPage.class);
-                startActivity(intent);
-            }
-        });
 
         /*实现 圈子,校园,我 三者底部导航栏的代码*/
 
@@ -84,13 +75,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mCampusNavigationBar.setOnClickListener(this);
         mMeNavigationBar.setOnClickListener(this);
 
-        //获取 圈子，校园，我 导航栏的ImageButton
+        //获取 圈子，校园，我 导航栏的ImageButton和TextView
         mCircleNavigationBarImageButton = (ImageButton)
-                findViewById(R.id.campus_navigation_bar_image_button);
-        mCampusNavigationBarImageButton = (ImageButton)
                 findViewById(R.id.circle_navigation_bar_image_button);
+        mCircleNavigationBarTextView = (TextView)
+                findViewById(R.id.circle_navigation_bar_text_view);
+        mCampusNavigationBarImageButton = (ImageButton)
+                findViewById(R.id.campus_navigation_bar_image_button);
+        mCampusNavigationBarTextView = (TextView)
+                findViewById(R.id.campus_navigation_bar_text_view);
         mMeNavigationBarImageButton = (ImageButton)
                 findViewById(R.id.me_navigation_bar_image_button);
+        mMeNavigationBarTextView = (TextView)
+                findViewById(R.id.me_navigation_bar_text_view);
     }
 
     /**
@@ -112,7 +109,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Intent intent1 = new Intent(this, CampusHomePageActivity.class);
         mCircleCampusMeViews.add(getView("CampusHomePageActivity", intent1));
 
-        //跳转到个人中心首页
         Intent intent2 = new Intent(this, MeHomePageActivity.class);
         mCircleCampusMeViews.add(getView("MeHomePageActivity", intent2));
 
@@ -131,7 +127,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     /**
-     * 监听的是底部菜单的触摸事件，根据触摸的控件，改变自身的亮度、改变ViewPage显示的内容
+     * 监听的是底部菜单的触摸事件，根据触摸的控件，改变自身的颜色、改变ViewPage显示的内容
      */
     @Override
     public void onClick(View arg0) {
@@ -140,14 +136,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.circle_navigation_bar_linear_layout:
                 mCircleCampusMeViewPager.setCurrentItem(0);
                 changeCircleCampusMeNavigationBarImageButtonToNormal();
-                mCampusNavigationBarImageButton
+                mCircleNavigationBarImageButton
                         .setImageResource(R.drawable.circle_navigation_bar_image_button_selected);
+                mCircleNavigationBarTextView.setTextColor(getResources().getColor(R.color.blue));
                 break;
             case R.id.campus_navigation_bar_linear_layout:
                 mCircleCampusMeViewPager.setCurrentItem(1);
                 changeCircleCampusMeNavigationBarImageButtonToNormal();
-                mCircleNavigationBarImageButton
+                mCampusNavigationBarImageButton
                         .setImageResource(R.drawable.campus_navigation_bar_image_button_selected);
+                mCampusNavigationBarTextView.setTextColor(getResources().getColor(R.color.blue));
                 break;
             case R.id.me_navigation_bar_linear_layout:
                 mCircleCampusMeViewPager.setCurrentItem(2);
@@ -155,6 +153,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 changeCircleCampusMeNavigationBarImageButtonToNormal();
                 mMeNavigationBarImageButton
                         .setImageResource(R.drawable.me_navigation_bar_image_button_selected);
+                mMeNavigationBarTextView.setTextColor(getResources().getColor(R.color.blue));
                 break;
             default:
                 break;
@@ -166,11 +165,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     private void changeCircleCampusMeNavigationBarImageButtonToNormal() {
         mCircleNavigationBarImageButton
-                .setImageResource(R.drawable.campus_navigation_bar_image_button_normal);
-        mCampusNavigationBarImageButton
                 .setImageResource(R.drawable.circle_navigation_bar_image_button_normal);
+        mCircleNavigationBarTextView.setTextColor(getResources().getColor(R.color.gray_word));
+        mCampusNavigationBarImageButton
+                .setImageResource(R.drawable.campus_navigation_bar_image_button_normal);
+        mCampusNavigationBarTextView.setTextColor(getResources().getColor(R.color.gray_word));
         mMeNavigationBarImageButton
                 .setImageResource(R.drawable.me_navigation_bar_image_button_normal);
+        mMeNavigationBarTextView.setTextColor(getResources().getColor(R.color.gray_word));
     }
 
 }

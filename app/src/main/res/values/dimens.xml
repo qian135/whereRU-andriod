@@ -1,10 +1,6 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="view_small_padding">1dp</dimen>
-    <dimen name="view_padding">6dp</dimen>
+
 
     <!-- 最上面标题栏的尺寸 -->
 
@@ -16,9 +12,15 @@
     <!-- 返回上一级的箭头的右边的文字大小 -->
     <dimen name="right_text_view_of_up_navigation_icon_text_size">30sp</dimen>
 
-    <!-- 个人中心->我的团队 界面相关尺寸 -->
+    <!-- 通用尺寸 -->
 
+    <dimen name="view_small_padding">1dp</dimen>
+    <dimen name="view_padding">6dp</dimen>
 
+    <dimen name="layout_margin_left_or_right">6dp</dimen>
+    <dimen name="slide_bar_height">2dp</dimen>
 
+    <!-- 校园活动，竞赛，团队的标题，名称字体大小 -->
+    <dimen name="campus_activity_competition_team_title_text_size">20sp</dimen>
 
 </resources>

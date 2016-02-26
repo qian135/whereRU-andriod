@@ -66,7 +66,7 @@ public class FirstActivity extends Activity {
     }
 
     private void goHome() {
-        Intent intent = new Intent(FirstActivity.this, SignInActivity.class);
+        Intent intent = new Intent(FirstActivity.this, LoginInActivity.class);
         FirstActivity.this.startActivity(intent);
         FirstActivity.this.finish();
     }

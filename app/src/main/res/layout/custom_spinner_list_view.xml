@@ -1,0 +1,7 @@
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/custom_spinner_list_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/blue"
+    android:divider="@color/transparent"
+    android:paddingBottom="10dp"/>

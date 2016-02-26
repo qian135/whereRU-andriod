@@ -50,7 +50,7 @@ public class MyListViewAdapter extends BaseAdapter {
                 //校园活动首页的ListView部分
                 case 0:
                     convertView = layoutInflater
-                            .inflate(R.layout.campus_activity_home_page_activity_listview_item_layout, null);
+                            .inflate(R.layout.campus_activity_home_page_listview_item_layout, null);
                     break;
                 //校园竞赛首页的ListView
                 case 1:

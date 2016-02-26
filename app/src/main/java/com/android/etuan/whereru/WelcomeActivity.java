@@ -39,8 +39,6 @@ public class WelcomeActivity extends Activity
         // 初始化底部小点
         initWelcomePagePointsLinearLayout();
 
-
-
     }
 
     private void initWelcomePageViews() {
@@ -66,7 +64,7 @@ public class WelcomeActivity extends Activity
 
     private void initWelcomePagePointsLinearLayout() {
         LinearLayout welcomePagePointLinearLayout = (LinearLayout)
-                findViewById(R.id.welcome_page_point_linear_layout);
+                findViewById(R.id.welcome_page_indicator_point_linear_layout);
 
         mWelcomePagePoints = new ImageView[mWelcomePageViews.size()];
 
@@ -78,7 +76,7 @@ public class WelcomeActivity extends Activity
         mWelcomePageCurrentPageIndex = 0;
         //初始化第一个点为选中状态
         mWelcomePagePoints[mWelcomePageCurrentPageIndex]
-                .setImageResource(R.drawable.welcome_page_point_icon_selected);
+                .setImageResource(R.drawable.indicator_point_selected);
 
     }
 
@@ -90,11 +88,11 @@ public class WelcomeActivity extends Activity
 
         // 循环将点设为非选中状态
         for (int i = 0; i < mWelcomePageViews.size(); i++) {
-            mWelcomePagePoints[i].setImageResource(R.drawable.welcome_page_point_icon);
+            mWelcomePagePoints[i].setImageResource(R.drawable.indicator_point_normal);
         }
 
         //将当前点设为选中状态
-        mWelcomePagePoints[position].setImageResource(R.drawable.welcome_page_point_icon_selected);
+        mWelcomePagePoints[position].setImageResource(R.drawable.indicator_point_selected);
 
         mWelcomePageCurrentPageIndex = position;
     }

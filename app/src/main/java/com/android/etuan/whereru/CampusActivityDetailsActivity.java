@@ -16,10 +16,8 @@ public class CampusActivityDetailsActivity extends Activity {
 
     /*该页面顶部滑动条相关代码*/
 
-    private int mSlideBarDivideNumber = 3;//顶部滑动菜单划分的块数
-    private MySlideBarHandler mMySlideBarHandler;//顶部滑动条的处理类
+    private int mSlideBarDivideNumber = 3;//顶部滑动部分划分的块数
     private ImageView mSlideBar;//滑动条
-    private int mSlideBarCurrentIndex = 0;
 
 
     /*实现 校园活动详情->活动介绍，活动详情，参与活动 三页面ViewPager切换的代码*/
@@ -47,10 +45,8 @@ public class CampusActivityDetailsActivity extends Activity {
 
          /*实现 校园活动详情->活动介绍，活动详情，参与活动 三页面ViewPager切换的代码*/
 
-        //初始化 校园活动详情->活动介绍，活动详情，参与活动 下面滑动条的动画
-        initCampusActivityIntroduceDetailJoinSlideBarAnimation();
-        //初始化 校园活动详情->活动介绍，活动详情，参与活动 标题栏的TextView
-        initCampusActivityIntroduceDetailJoinTextView();
+        //初始化 校园活动详情->活动介绍，活动详情，参与活动 标题栏的TextView及下面的滑动条
+        initTextViewAndSlideBar();
         //校园活动详情->活动介绍，活动详情，参与活动 ViewPager的初始化
         initCampusActivityIntroduceDetailJoinViewPager();
 
@@ -70,21 +66,12 @@ public class CampusActivityDetailsActivity extends Activity {
 
     /*实现 校园活动详情->活动介绍，活动详情，参与活动 三页面ViewPager切换的代码*/
 
-    /**
-     * 初始化 校园活动详情 ：活动介绍，活动详情，参与活动 下面滑动条的动画
-     */
-    private void initCampusActivityIntroduceDetailJoinSlideBarAnimation() {
-        mSlideBar = (ImageView)
-                findViewById(R.id.campus_activity_details_home_page_cursor);
-        mMySlideBarHandler = new MySlideBarHandler(this,mSlideBarDivideNumber,
-                R.drawable.campus_activity_detail_page_slide_bar_icon,mSlideBar);
-    }
 
     /**
-     * 初始化 校园活动详情->活动介绍，活动详情，参与活动 标题栏的TextView
+     * 初始化 校园活动详情->活动介绍，活动详情，参与活动 标题栏的TextView及下面的滑动条
      * （这里主要是实例化，并设置监听）
      */
-    private void initCampusActivityIntroduceDetailJoinTextView() {
+    private void initTextViewAndSlideBar() {
         mCampusActivityIntroduceTextView = (TextView)
                 findViewById(R.id.campus_activity_details_home_page_introduce_text_view);
         mCampusActivityDetailTextView = (TextView)
@@ -95,6 +82,9 @@ public class CampusActivityDetailsActivity extends Activity {
         mCampusActivityIntroduceTextView.setOnClickListener(new MyOnClickListener(0));
         mCampusActivityDetailTextView.setOnClickListener(new MyOnClickListener(1));
         mCampusActivityJoinTextView.setOnClickListener(new MyOnClickListener(2));
+
+        mSlideBar = (ImageView) findViewById(R.id.campus_activity_details_home_page_cursor);
+
     }
 
     /**
@@ -126,10 +116,12 @@ public class CampusActivityDetailsActivity extends Activity {
 
 
         //主要是为 校园活动详情->活动介绍，活动详情，参与活动 下面那个滑动条服务的
+
+        View view = findViewById(R.id.campus_activity_details_home_page_text_view_linear_layout);
+
         MyViewPagerOnPageChangeListener myViewPagerOnPageChangeListener =
-                new MyViewPagerOnPageChangeListener(mMySlideBarHandler.getSlideBarMoveUnit(),
-                        mSlideBarCurrentIndex, mSlideBar);
-        mCampusActivityDetailsViewPager.setOnPageChangeListener
+                new MyViewPagerOnPageChangeListener(this, view, mSlideBar, mSlideBarDivideNumber);
+        mCampusActivityDetailsViewPager.addOnPageChangeListener
                 (myViewPagerOnPageChangeListener);
 
     }

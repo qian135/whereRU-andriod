@@ -6,69 +6,79 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
-import com.android.etuan.whereru.Constant;
+import com.android.etuan.whereru.utils.InterfaceConstant;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import cz.msebera.android.httpclient.Header;
 
-/**
- * Created by TonyJiang on 2016/1/30.
- */
 public class HttpSearch {
-    private static final int ACTIVITY = 1;
-    private static final int RACE = 2;
-    private static final int TEAM = 3;
-    private static final int USER = 4;
-    private static final int COTERIE = 5;
 
-    private static String LocalHost = Constant.LOCALHOST;
+    private static String LocalHost = InterfaceConstant.LOCALHOST;
     private static String StringURL;
+
     private static Context mContext;
+
     private static Handler mHandler;
-    public static void setContext(Context context){
+
+    public static void setmContext(Context context) {
         mContext = context;
     }
-    public static void setHandler(Handler handler){
+
+    public static void setmHandler(Handler handler) {
         mHandler = handler;
     }
-    public static void getSearch(String KeyWord,int type){
+
+    public static void search(String KeyWord,int type){
         switch(type){
-            case ACTIVITY:
+            case InterfaceConstant.ACTIVITY:
                 StringURL = "http://"+LocalHost+":3000/api/Activities/search?keyword="+KeyWord;
                 break;
-            case RACE:
+            case InterfaceConstant.RACE:
                 StringURL = "http://"+LocalHost+":3000/api/Races/search?keyword="+KeyWord;
                 break;
-            case TEAM:
+            case InterfaceConstant.TEAM:
                 StringURL = "http://"+LocalHost+":3000/api/Teams/search?keyword="+KeyWord;
                 break;
-            case USER:
+            case InterfaceConstant.USER:
                 StringURL = "http://"+LocalHost+":3000/api/WUsers/search?keyword="+KeyWord;
                 break;
-            case COTERIE:
+            case InterfaceConstant.COTERIE:
                 StringURL = "http://"+LocalHost+":3000/api/Coteries/search?keyword="+KeyWord;
                 break;
         }
         AsyncHttpClient getSearchClient = new AsyncHttpClient();
         getSearchClient.get(StringURL, new AsyncHttpResponseHandler() {
+
+            /**
+             * 这里onSuccess通过Handler返回从服务器取得的string数据
+             * 之后用外部的JSONSearchs类来解析JSON数据
+             */
             @Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
                 String state = new String(bytes);
                 Bundle bundle = new Bundle();
-                bundle.putString("data",state);
+                bundle.putString("data", state);
                 Message msg = new Message();
-                msg.what = 0x234;
+                msg.what = InterfaceConstant.GET_SUCCESS;
                 msg.setData(bundle);
-                Toast.makeText(mContext,"获取成功",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "获取成功", Toast.LENGTH_SHORT).show();
+                System.out.println(new String(bytes));
                 mHandler.sendMessage(msg);
             }
 
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                Toast.makeText(mContext,"获取失败",Toast.LENGTH_SHORT).show();
-                mHandler.sendEmptyMessage(0x123);
+                Toast.makeText(mContext, "获取失败", Toast.LENGTH_SHORT).show();
+                System.out.println(new String(bytes));
+                Message msg = new Message();
+                msg.what = InterfaceConstant.GET_FAIL;
+                Bundle bundle = new Bundle();
+                bundle.putString("data",new String(bytes));
+                msg.setData(bundle);
+                mHandler.sendMessage(msg);
             }
         });
     }
+
 }

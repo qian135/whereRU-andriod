@@ -27,6 +27,7 @@
             android:paddingBottom="@dimen/view_padding"
             android:paddingRight="@dimen/view_padding" >
         </LinearLayout>
+
     </RelativeLayout>
 
 </FrameLayout>

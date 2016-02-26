@@ -32,8 +32,8 @@
         android:layout_alignLeft="@+id/imageView3"
         android:layout_alignStart="@+id/imageView3"
         android:layout_below="@+id/imageView3"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/student_id_identification_page_password_image" />
+        android:layout_marginTop="40dp"
+        android:src="@drawable/sign_in_password_icon" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -42,15 +42,15 @@
         android:layout_alignLeft="@+id/imageView3"
         android:layout_alignStart="@+id/imageView3"
         android:layout_below="@+id/imageView4"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/register_page_phone_icon" />
+        android:layout_marginTop="40dp"
+        android:src="@drawable/sign_in_phone_icon" />
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="30dp"
-        android:src="@drawable/register_page_sex_icon"
+        android:src="@drawable/register_page_gender_icon"
         android:layout_alignLeft="@+id/imageView5"
         android:layout_alignStart="@+id/imageView5"
         android:layout_below="@+id/imageView5" />
@@ -103,17 +103,6 @@
         android:background="@drawable/custom_rounded_button"
         android:text="注册" />
 
-
-    <TextView
-        android:id="@+id/sign_in_text_view_in_register_page_two"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/register_button_in_register_page_two"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="登陆"
-        android:textColor="@color/blue" />
-
     <RadioGroup
         android:id="@+id/sex_choose_radio_group"
         android:layout_width="wrap_content"
@@ -122,29 +111,41 @@
         android:layout_marginLeft="100dp"
         android:layout_above="@+id/register_button_in_register_page_two">
 
-            <RadioButton
-                android:id="@+id/sex_choose_man_radio_button"
-                android:text="男"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:checked="true"
-                android:layout_above="@+id/register_button_in_register_page_two"
-                android:layout_toLeftOf="@+id/sign_in_text_view_in_register_page_two"
-                android:layout_toStartOf="@+id/sign_in_text_view_in_register_page_two" />
+        <RadioButton
+            android:id="@+id/sex_choose_man_radio_button"
+            android:text="男"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:checked="true"
+            android:layout_above="@+id/register_button_in_register_page_two"
+            android:layout_toLeftOf="@+id/sign_in_text_view_in_register_page_two"
+            android:layout_toStartOf="@+id/sign_in_text_view_in_register_page_two" />
 
-            <RadioButton
-                android:id="@+id/sex_choose_woman_radio_button"
-                android:text="女"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:layout_above="@+id/register_button_in_register_page_two"
-                android:layout_toLeftOf="@+id/sign_in_text_view_in_register_page_two"
-                android:layout_toStartOf="@+id/sign_in_text_view_in_register_page_two" />
+        <RadioButton
+            android:id="@+id/sex_choose_woman_radio_button"
+            android:text="女"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:layout_above="@+id/register_button_in_register_page_two"
+            android:layout_toLeftOf="@+id/sign_in_text_view_in_register_page_two"
+            android:layout_toStartOf="@+id/sign_in_text_view_in_register_page_two" />
 
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/sign_in_text_view_in_register_page_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_button_in_register_page_two"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="登陆"
+        android:textColor="@color/blue" />
+
+
 
 </RelativeLayout>

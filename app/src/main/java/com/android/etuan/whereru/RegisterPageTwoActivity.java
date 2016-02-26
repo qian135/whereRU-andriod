@@ -3,17 +3,25 @@ package com.android.etuan.whereru;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.etuan.whereru.utils.httputil.HttpRegister;
-import com.loopj.android.http.RequestParams;
+import com.android.etuan.whereru.utils.InterfaceConstant;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 注册界面2代码
@@ -34,7 +42,8 @@ public class RegisterPageTwoActivity extends Activity {
 
     private RadioButton mSexChooseManRadioButton, mSexChooseWomanRadioButton;
 
-    private String mSexChooseResult,mSchoolName;
+    //默认男
+    private String mSexChooseResult = "男", mSchoolName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,32 +87,38 @@ public class RegisterPageTwoActivity extends Activity {
                 String password = mRegisterPageTwoPasswordEditText.getText().toString();
                 String phoneNumber = mRegisterPageTwoPhoneNumberEditText.getText().toString();
 
-                HttpRegister.setContext(RegisterPageTwoActivity.this);
-                RequestParams params = new RequestParams();
+                Map<String, String> params = new HashMap<>();
+                params.put("name", userName);
+                params.put("password", password);
+                params.put("phone", phoneNumber);
+                params.put("sex", mSexChooseResult);
+                params.put("school", mSchoolName);
 
-                params.add("name", userName);
-                params.add("password", password);
-                params.add("phone", phoneNumber);
-                params.add("sex", mSexChooseResult);
-                params.add("school", mSchoolName);
+                JSONObject jsonObject = new JSONObject(params);
+                JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.POST,
+                        InterfaceConstant.REGISTER_URL, jsonObject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject jsonObject) {
+                                Toast.makeText(RegisterPageTwoActivity.this,"注册成功！"
+                                        ,Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(RegisterPageTwoActivity.this,
+                                        LoginInActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                Toast.makeText(RegisterPageTwoActivity.this,
+                                        "注册失败：" + volleyError.toString()
+                                        , Toast.LENGTH_LONG).show();
+                            }
+                        });
+                MyVolleySingleton.getInstance(RegisterPageTwoActivity.this.getApplicationContext())
+                        .addToRequestQueue(jsonRequest);
 
-                Handler handler = new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        if (msg.what == 0x234) {
-                            //注册成功
-                            Intent intent = new Intent(RegisterPageTwoActivity.this,
-                                    SignInActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            //注册失败
-                        }
-                        super.handleMessage(msg);
-                    }
-                };
-                HttpRegister.setHandler(handler);
-                HttpRegister.Register(params);
             }
         });
 
@@ -113,7 +128,7 @@ public class RegisterPageTwoActivity extends Activity {
         mSignInTextViewInRegisterPageTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterPageTwoActivity.this, SignInActivity.class);
+                Intent intent = new Intent(RegisterPageTwoActivity.this, LoginInActivity.class);
                 startActivity(intent);
                 finish();
             }

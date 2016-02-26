@@ -17,9 +17,12 @@
         android:background="@color/white"/>
 
     <LinearLayout
+        android:id="@+id/campus_activity_details_home_page_text_view_linear_layout"
         android:layout_width="fill_parent"
         android:layout_height="30dp"
-        android:background="#FFFFFF" >
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/white" >
 
         <TextView
             android:id="@+id/campus_activity_details_home_page_introduce_text_view"
@@ -28,7 +31,7 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:text="活动介绍"
-            android:textColor="#000000"
+            android:textColor="@color/blue"
             android:textSize="22.0dip" />
 
         <TextView
@@ -53,12 +56,25 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/campus_activity_details_home_page_cursor"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="matrix"
-        android:src="@drawable/campus_activity_detail_page_slide_bar_icon" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+
+        <ImageView
+            android:id="@+id/campus_activity_details_home_page_cursor"
+            android:layout_width="1dp"
+            android:layout_height="2dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/blue"/>
+
+    </RelativeLayout>
+
+
 
     <!--校园这个大类的主ViewPager-->
     <android.support.v4.view.ViewPager

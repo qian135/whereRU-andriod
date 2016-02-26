@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 文件名用search_page_campus_activity_list_view_layout，
+    与下面的search_page_campus_activity_list_view区别开 -->
+
+    <ListView
+        android:id="@+id/search_page_campus_activity_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

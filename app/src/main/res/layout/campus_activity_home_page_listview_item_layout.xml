@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--校园活动首页列表的总布局-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:includeFontPadding="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="团团一家2015招新报名"
+        android:textColor="@color/black"
+        android:id="@+id/activity_title"
+        android:layout_marginLeft="@dimen/layout_margin_left_or_right"
+        android:layout_marginTop="@dimen/view_small_padding"
+        android:textSize="@dimen/campus_activity_competition_team_title_text_size"/>
+
+    <TextView
+        android:includeFontPadding="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="团团一家"
+        android:textColor="@color/gray_word"
+        android:id="@+id/activity_sponsor"
+        android:paddingLeft="@dimen/layout_margin_left_or_right"
+        android:layout_marginTop="@dimen/view_small_padding"
+        android:layout_below="@+id/activity_title" />
+
+    <TextView
+        android:includeFontPadding="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2015-12-11"
+        android:textColor="@color/gray_word"
+        android:paddingLeft="@dimen/layout_margin_left_or_right"
+        android:layout_marginTop="@dimen/view_small_padding"
+        android:id="@+id/activity_create_time"
+        android:layout_below="@+id/activity_title"
+        android:layout_toRightOf="@+id/activity_sponsor" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="进行中"
+        android:textColor="@color/green"
+        android:id="@+id/activity_state"
+        android:layout_marginRight="@dimen/layout_margin_left_or_right"
+        android:includeFontPadding="false"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/activity_title" />
+
+    <!-- android:adjustViewBounds="true"去掉imageView中上下的空白 -->
+    <com.android.volley.toolbox.NetworkImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_poster"
+        android:adjustViewBounds="true"
+        android:src="@drawable/sea"
+        android:layout_marginLeft="@dimen/layout_margin_left_or_right"
+        android:layout_marginRight="@dimen/layout_margin_left_or_right"
+        android:layout_marginTop="@dimen/view_small_padding"
+        android:scaleType="fitXY"
+        android:layout_below="@+id/activity_sponsor" />
+
+    <TextView
+        android:id="@+id/activity_keyword"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="活动关键字活动关键字活动关键字活动关键字"
+        android:textColor="@color/white"
+        android:background="@drawable/text_view_background_shadow"
+        android:layout_marginLeft="@dimen/layout_margin_left_or_right"
+        android:layout_marginRight="@dimen/layout_margin_left_or_right"
+        android:padding="@dimen/view_padding"
+        android:layout_alignBottom="@+id/activity_poster" />
+
+</RelativeLayout>

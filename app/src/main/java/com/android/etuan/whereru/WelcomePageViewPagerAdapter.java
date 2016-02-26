@@ -66,7 +66,7 @@ public class WelcomePageViewPagerAdapter extends PagerAdapter {
 
     private void goHome() {
         // 跳转
-        Intent intent = new Intent(activity, SignInActivity.class);
+        Intent intent = new Intent(activity, LoginInActivity.class);
         activity.startActivity(intent);
         activity.finish();
     }

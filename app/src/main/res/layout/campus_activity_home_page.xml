@@ -1,20 +1,81 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--校园活动首页的总布局-->
+<?xml version="1.0" encoding="utf-8"?><!--校园活动首页的总布局-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/fragment_cycle_viewpager_content"
-        android:name="cn.androiddevelop.cycleviewpager.lib.HotCampusActivityCycleViewPager"
+
+
+    <!-- 通过android:layout_weight的权重来划分各组件在屏幕所占的比重，
+    注意设置android:layout_height="0dp" -->
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/hot_campus_activity_relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="180dp" />
+        android:layout_height="0dp"
+        android:layout_weight="8">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/hot_campus_activity_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/hot_campus_activity_indicator_point_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/indicator_point_normal" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/indicator_point_normal" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/indicator_point_normal" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/indicator_point_normal" />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/indicator_point_normal" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/slide_bar_height"
+        android:layout_marginBottom="@dimen/view_small_padding"
+        android:layout_marginTop="@dimen/view_small_padding"
+        android:background="@color/gray_line" />
 
     <ListView
         android:id="@+id/campus_activity_home_page_activity_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="240dp"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="12" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/slide_bar_height"
+        android:background="@color/white" />
 
 </LinearLayout>

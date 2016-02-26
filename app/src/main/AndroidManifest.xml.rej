@@ -1,0 +1,24 @@
+diff a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml	(rejected hunks)
+@@ -44,11 +44,21 @@
+ 
+         </activity>
+ 
+-        <!-- 校园活动，校园竞赛，校园团队 3个的首页 -->
++        <!-- 圈子，校园，我的框架 -->
+         <activity android:name=".MainActivity">
+ 
+         </activity>
+ 
++        <!-- 圈子 -->
++        <activity android:name=".CircleHomePageActivity">
++
++        </activity>
++
++        <!-- 校园这个大类的首页 -->
++        <activity android:name=".CampusHomePageActivity">
++
++        </activity>
++
+         <!-- 校园活动->活动详情 界面-->
+         <activity
+             android:name=".CampusActivityDetailsActivity"

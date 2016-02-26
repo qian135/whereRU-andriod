@@ -47,7 +47,7 @@ public class MeHomeMyTeamListViewAdapter extends BaseAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater
-                    .inflate(R.layout.campus_activity_home_page_activity_listview_item_layout, null);
+                    .inflate(R.layout.campus_activity_home_page_listview_item_layout, null);
         }
         return convertView;
     }

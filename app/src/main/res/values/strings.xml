@@ -1,13 +1,6 @@
 <resources>
-    <string name="app_name">Where R U</string>
 
-    <!--校园活动状态选择下拉列表-->
-    <string-array name="campus_activity_state">
-        <item>全部</item>
-        <item>正在进行</item>
-        <item>即将开始</item>
-        <item>已结束</item>
-    </string-array>
+    <string name="app_name">Where R U</string>
 
     <string name="title_activity_campus_activity_details">
         CampusActivityDetailsActivity</string>

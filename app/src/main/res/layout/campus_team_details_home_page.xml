@@ -37,7 +37,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="进入圈子"
             android:id="@+id/textView14"
-            android:textColor="@color/light_sea_green"
+            android:textColor="@color/blue"
             android:layout_alignBottom="@+id/textView13"
             android:layout_toRightOf="@+id/textView13"
             android:layout_toEndOf="@+id/textView13"

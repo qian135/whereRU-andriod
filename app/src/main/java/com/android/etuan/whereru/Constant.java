@@ -2,5 +2,7 @@ package com.android.etuan.whereru;
 
 
 public class Constant {
-    public static final String LOCALHOST = "192.168.1.107";
+
+    public static final int CAMPUS_HOME_PAGE_FRESHEN_DROPDOWM_CONTENT = 1;
+
 }

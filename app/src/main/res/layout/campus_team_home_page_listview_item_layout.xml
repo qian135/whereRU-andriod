@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/campus_team_logo"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="团团一家——杭电活动服务平台，来自杭电计算机学院认知与智能计算研究所。我们致力于提供便捷的活动报名、投票、抢票等服务，推进以互联网方式举办活动。"
-        android:id="@+id/campus_team_introduce"
+        android:id="@+id/campus_team_description"
         android:paddingLeft="35dp"
         android:paddingRight="35dp"
         android:paddingTop="70dp"

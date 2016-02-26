@@ -1,9 +1,10 @@
 package com.android.etuan.whereru.utils.jsonutil;
 
-import com.android.etuan.whereru.utils.searchclass.Coterie;
-import com.android.etuan.whereru.utils.searchclass.Race;
-import com.android.etuan.whereru.utils.searchclass.Team;
-import com.android.etuan.whereru.utils.searchclass.User;
+import com.android.etuan.whereru.utils.jsonjavabean.Coterie;
+import com.android.etuan.whereru.utils.jsonjavabean.Race;
+import com.android.etuan.whereru.utils.jsonjavabean.Team;
+import com.android.etuan.whereru.utils.jsonjavabean.User;
+import com.android.etuan.whereru.utils.jsonjavabean.mActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,65 +12,66 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by TonyJiang on 2016/1/30.
- */
+
 public class JSONSearchs {
+    //搜索类型 type
     private static final int ACTIVITY = 1;
     private static final int RACE = 2;
     private static final int TEAM = 3;
     private static final int USER = 4;
     private static final int COTERIE = 5;
-//    private static Activities[]activities;
-    //private static Race []races;
-//    private static Team []teams;
-//    private static User []users;
-//    private static Coterie []coteries;
 
-    private static ArrayList<com.android.etuan.whereru.utils.searchclass.Activities> activities;
+    //保存搜索得到的信息所封装完成的类数组
+    private static ArrayList<mActivity> activities;
     private static ArrayList<Race> races;
     private static ArrayList<Team> teams;
     private static ArrayList<User> users;
     private static ArrayList<Coterie> coteries;
 
-    public static void GetInfo(String json, int type) throws JSONException {
+    /**
+     * 仅仅用到这个接口来处理数据 之后根据搜索类型返回特定的ArrayList
+     * @param json JSON数据
+     * @param type 搜索信息的类型
+     * @throws JSONException
+     */
+    public static void GetInfo(String json,int type) throws JSONException  {
         JSONArray jsonArray;
-        switch (type) {
+        //根据type分5个不同的方式获取并保存信息
+        switch(type){
             case ACTIVITY:
-                jsonArray = com.android.etuan.whereru.utils.jsonutil.Activities.getJSON(json);
-                com.android.etuan.whereru.utils.searchclass.Activities.GetInfo(jsonArray);
-                activities = com.android.etuan.whereru.utils.searchclass.Activities.getActivities();
+                jsonArray = new JSONObject(json).getJSONArray("activties");
+                //new一个新的mActivity类 为了使用GetInfo方法解析数据 这个方法仅仅在这里使用
+                //GetInfo方法返回一个ArrayList
+                mActivity mActivity = new mActivity();
+                activities  = mActivity.GetInfo(jsonArray);;
                 break;
+            //下面的注释同上
             case RACE:
-                jsonArray = Races.getJSON(json);
-                Race.GetInfo(jsonArray);
-                races = Race.getRaces();
+                jsonArray = new JSONObject(json).getJSONArray("races");
+                races = (new Race()).GetInfo(jsonArray);
                 break;
             case TEAM:
-                jsonArray = Teams.getJson(json);
-                Team.GetInfo(jsonArray);
-                teams = Team.getTeams();
+                jsonArray = new JSONObject(json).getJSONArray("teams");
+                teams = (new Team()).GetInfo(jsonArray);
                 break;
             case USER:
-                jsonArray = Users.getJson(json);
-                User.GetInfo(jsonArray);
-                users = User.getUsers();
+                jsonArray = new JSONObject(json).getJSONArray("users");
+                users = new User().GetInfo(jsonArray);
                 break;
             case COTERIE:
-                jsonArray = Coteries.getJson(json);
-                Coterie.GetInfo(jsonArray);
-                coteries = Coterie.getCoteries();
+                jsonArray = new JSONObject(json).getJSONArray("coteries");
+                coteries = new Coterie().GetInfo(jsonArray);
                 break;
         }
 
     }
 
-
-    public static ArrayList<com.android.etuan.whereru.utils.searchclass.Activities> getActivities() {
+    //返回处理完成之后的类数组
+    public static ArrayList<mActivity> getActivities(){
         return activities;
     }
 
-    public static ArrayList<Race> getRaces() {
+    public static ArrayList<Race> getRaces(){
         return races;
     }
 
@@ -84,139 +86,6 @@ public class JSONSearchs {
     public static ArrayList<Coterie> getCoteries() {
         return coteries;
     }
+
 }
 
-
-class Activities {
-    private static JSONArray jsonArray;
-
-    public static JSONArray getJSON(String json) throws JSONException {
-        JSONObject mainJSON = new JSONObject(json);
-        jsonArray = mainJSON.getJSONArray("activties");
-        return jsonArray;
-    }
-}
-
-//class Activities{
-//    private String title;
-//    private String authorName;
-//    private String id;
-//    private String authorId;
-//    private String keyword;
-//    private String imgUrl;
-//    private String created;
-//    private String started;
-//    private String ended;
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public String getAuthorName() {
-//        return authorName;
-//    }
-//
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public String getAuthorId() {
-//        return authorId;
-//    }
-//
-//    public String getKeyword() {
-//        return keyword;
-//    }
-//
-//    public String getImgUrl() {
-//        return imgUrl;
-//    }
-//
-//    public String getCreated() {
-//        return created;
-//    }
-//
-//    public String getStarted() {
-//        return started;
-//    }
-//
-//    public String getEnded() {
-//        return ended;
-//    }
-//
-//    public void GetInfo(JSONObject jsonObject) throws JSONException {
-//        title = jsonObject.getString("title");
-//        authorName = jsonObject.getString("authorName");
-//        id = jsonObject.getString("id");
-//        authorId  = jsonObject.getString("authorId");
-//        keyword = jsonObject.getString("keyword");
-//        imgUrl = jsonObject.getString("imgUrl");
-//        created = jsonObject.getString("created");
-//        started = jsonObject.getString("started");
-//        ended = jsonObject.getString("ended");
-//    }
-//}
-class Races {
-    private static JSONArray jsonArray;
-
-    public static JSONArray getJSON(String json) throws JSONException {
-        jsonArray = new JSONObject(json).getJSONArray("races");
-        return jsonArray;
-    }
-}
-
-//class Race{
-//    private String name;
-//    private String imageUrl;
-//    private String started;
-//    private String id;
-//    private String authorId;
-//    private String ended;
-//    private String created;
-//
-//}
-class Teams {
-    private static JSONArray jsonArray;
-
-    public static JSONArray getJson(String json) throws JSONException {
-        jsonArray = new JSONObject(json).getJSONArray("teams");
-        return jsonArray;
-    }
-}
-
-//class Team{
-//    private String id;
-//    private String userId;
-//    private String name;
-//    private String logoUrl;
-//    private String desc;
-//    private String status;
-//}
-class Users {
-    private static JSONArray jsonArray;
-
-    public static JSONArray getJson(String json) throws JSONException {
-        jsonArray = new JSONObject(json).getJSONArray("users");
-        return jsonArray;
-    }
-}
-
-//class User{
-//    private String id;
-//    private String name;
-//    private String sign;
-//    private String headImgUrl;
-//}
-class Coteries {
-    private static JSONArray jsonArray;
-
-    public static JSONArray getJson(String json) throws JSONException {
-        jsonArray = new JSONObject(json).getJSONArray("coteries");
-        return jsonArray;
-    }
-}
-//class Coterie{
-//    private String name;
-//    private String logoUrl;
-//    private String id;
-//}

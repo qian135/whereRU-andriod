@@ -3,12 +3,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/campus_activity_competition_top_layout" />
 
     <!--这是圈子，校园，我 那个层面的ViewPaper，通过自定义使之不允许滑动-->
     <com.android.etuan.whereru.CircleCampusMeViewPager
         android:id="@+id/circle_campus_me_viewpager"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 

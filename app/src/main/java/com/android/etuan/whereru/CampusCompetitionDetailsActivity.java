@@ -16,9 +16,7 @@ public class CampusCompetitionDetailsActivity extends Activity {
 
     /*该页面顶部滑动条相关代码*/
     private int mSlideBarDivideNumber = 4;  //顶部滑动菜单划分的块数
-    private MySlideBarHandler mMySlideBarHandler;//顶部滑动条的处理类
     private ImageView mSlideBar;//滑动条
-    private int mSlideBarCurrentIndex = 0;
 
     /*实现 校园竞赛->竞赛详情->竞赛通知，竞赛详情，参赛团队，参与竞赛 4页面ViewPager切换的代码*/
 
@@ -58,10 +56,9 @@ public class CampusCompetitionDetailsActivity extends Activity {
 
          /*实现 校园竞赛->竞赛详情->竞赛通知，竞赛详情，参赛团队，参与竞赛 4页面ViewPager切换的代码*/
 
-        //初始化 校园竞赛->竞赛详情->竞赛通知，竞赛详情，参赛团队，参与竞赛 下面滑动条的动画
-        initCampusCompetitionNoticeDetailTeamJoinSlideBarAnimation();
         //初始化 校园竞赛->竞赛详情->竞赛通知，竞赛详情，参赛团队，参与竞赛 标题栏的TextView
-        initCampusCompetitionNoticeDetailTeamJoinTextView();
+        //及下面的滑动条
+        initTextViewAndSlideBar();
         //校园竞赛->竞赛详情->竞赛通知，竞赛详情，参赛团队，参与竞赛 ViewPager的初始化
         initCampusCompetitionNoticeDetailTeamJoinViewPager();
 
@@ -110,20 +107,12 @@ public class CampusCompetitionDetailsActivity extends Activity {
 
     /*实现 校园竞赛详情 ：竞赛通知，竞赛详情，参赛团队，参与竞赛 4页面ViewPager切换的代码*/
 
-    /**
-     * 初始化该页面滑动条的动画
-     */
-    private void initCampusCompetitionNoticeDetailTeamJoinSlideBarAnimation() {
-        mSlideBar = (ImageView) findViewById(R.id.campus_competition_details_page_slide_bar);
-        mMySlideBarHandler = new MySlideBarHandler(this,mSlideBarDivideNumber,
-                R.drawable.campus_competition_detail_page_slide_bar_icon,mSlideBar);
-    }
 
     /**
-     * 初始化 校园竞赛详情 ：竞赛通知，竞赛详情，参赛团队，参与竞赛 标题栏的TextView
+     * 初始化 校园竞赛详情 ：竞赛通知，竞赛详情，参赛团队，参与竞赛 标题栏的TextView及下面的滑动条
      * （这里主要是实例化，并设置监听）
      */
-    private void initCampusCompetitionNoticeDetailTeamJoinTextView() {
+    private void initTextViewAndSlideBar() {
         mCampusCompetitionNoticeTextView = (TextView)
                 findViewById(R.id.campus_competition_details_home_page_notice_text_view);
         mCampusCompetitionDetailTextView = (TextView)
@@ -137,6 +126,9 @@ public class CampusCompetitionDetailsActivity extends Activity {
         mCampusCompetitionDetailTextView.setOnClickListener(new MyOnClickListener(1));
         mCampusCompetitionTeamTextView.setOnClickListener(new MyOnClickListener(2));
         mCampusCompetitionJoinTextView.setOnClickListener(new MyOnClickListener(3));
+
+        mSlideBar = (ImageView) findViewById(R.id.campus_competition_details_page_slide_bar);
+
     }
 
     /**
@@ -169,10 +161,10 @@ public class CampusCompetitionDetailsActivity extends Activity {
                 .setAdapter(new MyViewPagerAdapter(mCampusCompetitionNoticeDetailTeamJoinViews));
 
         //主要是为该页面滑动条服务的
+        View view = findViewById(R.id.campus_competition_details_page_text_view_linear_layout);
         MyViewPagerOnPageChangeListener myViewPagerOnPageChangeListener =
-                new MyViewPagerOnPageChangeListener(mMySlideBarHandler.getSlideBarMoveUnit(),
-                        mSlideBarCurrentIndex, mSlideBar);
-        mCampusCompetitionDetailsViewPager.setOnPageChangeListener(myViewPagerOnPageChangeListener);
+                new MyViewPagerOnPageChangeListener(this, view, mSlideBar, mSlideBarDivideNumber);
+        mCampusCompetitionDetailsViewPager.addOnPageChangeListener(myViewPagerOnPageChangeListener);
     }
 
     /**

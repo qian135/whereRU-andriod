@@ -1,62 +1,86 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".MainActivity"
-                tools:ignore="MergeRootFrame" >
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <com.android.etuan.whereru.CustomDropDownListView
-        android:id="@+id/choose_school_custom_drop_down_list_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="你的地盘，你选择"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:id="@+id/textView4"
-        android:layout_above="@+id/choose_school_custom_drop_down_list_view"
+    <RelativeLayout
+        android:id="@+id/custom_school_name_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp"/>
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <TextView
+            android:id="@+id/school_name_dropdown_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="请选择你的学校"
+            android:textColor="@color/gray_word"
+            android:paddingLeft="5dp"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:background="@drawable/text_view_border"/>
+
+        <ImageView
+            android:id="@+id/school_name_dropdown_image_view"
+            android:layout_width="30dp"
+            android:padding="5dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/school_name__dropdown_icon"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@color/gray_word"/>
+
+    </RelativeLayout>
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/custom_school_name_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="56dp"
+        android:text="你的地盘，你选择"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/custom_school_name_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
         android:singleLine="false"
         android:text="选择学校，参与校园活动，竞赛，\n更有很多校友等着你一起互动"
-        android:id="@+id/textView5"
-        android:layout_below="@+id/choose_school_custom_drop_down_list_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"/>
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="登陆"
-        android:textColor="@color/blue"
         android:id="@+id/sign_in_text_view_in_register_page_one"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/choose_school_custom_drop_down_list_view"
-        android:layout_alignStart="@+id/choose_school_custom_drop_down_list_view"
-        android:layout_marginBottom="46dp"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/custom_school_name_spinner"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/custom_school_name_spinner"
+        android:layout_marginBottom="46dp"
+        android:text="登陆"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="下一步"
-        android:textColor="@color/blue"
+        android:textColor="@color/blue" />
+
+    <TextView
         android:id="@+id/next_step_text_view_in_register_page_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/custom_school_name_spinner"
+        android:layout_alignRight="@+id/custom_school_name_spinner"
         android:layout_alignTop="@+id/sign_in_text_view_in_register_page_one"
-        android:layout_alignRight="@+id/choose_school_custom_drop_down_list_view"
-        android:layout_alignEnd="@+id/choose_school_custom_drop_down_list_view"/>
+        android:text="下一步"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/blue" />
 
 </RelativeLayout>

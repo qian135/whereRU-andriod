@@ -5,9 +5,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**
- * Created by zhang on 1/25/2016.
- */
 public class CircleCampusMeViewPager extends ViewPager {
 
     public CircleCampusMeViewPager(Context context) {
@@ -31,4 +28,5 @@ public class CircleCampusMeViewPager extends ViewPager {
         return false;
 //        return super.onTouchEvent(ev);
     }
+
 }
