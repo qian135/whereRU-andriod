@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.etuan.whereru.utils.InterfaceConstant;
-import com.android.etuan.whereru.utils.httputil.HttpSearch;
 import com.android.etuan.whereru.utils.jsonjavabean.Coterie;
 import com.android.etuan.whereru.utils.jsonjavabean.Race;
 import com.android.etuan.whereru.utils.jsonjavabean.Team;
@@ -261,9 +260,6 @@ public class SearchPage extends Activity {
                     super.handleMessage(msg);
                 }
             };
-            HttpSearch.setmContext(SearchPage.this);
-            HttpSearch.setmHandler(handler);
-            HttpSearch.search(keyWord, type);
         }
     }
 
