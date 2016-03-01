@@ -12,11 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.etuan.whereru.utils.InterfaceConstant;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 
 import org.json.JSONObject;
 
@@ -95,7 +93,7 @@ public class RegisterPageTwoActivity extends Activity {
                 params.put("school", mSchoolName);
 
                 JSONObject jsonObject = new JSONObject(params);
-                JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.POST,
+                JsonObjectRequest jsonRequest = new JsonObjectRequest(
                         InterfaceConstant.REGISTER_URL, jsonObject,
                         new Response.Listener<JSONObject>() {
                             @Override
